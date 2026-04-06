@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: openclaw-team
+Version: 1.0.0
+Summary: OpenClaw Team - 阿里云百炼高代码应用
+Home-page: UNKNOWN
+Author: OpenClaw Team
+Author-email: team@openclaw.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.6
+Provides-Extra: deployment
+Provides-Extra: dev

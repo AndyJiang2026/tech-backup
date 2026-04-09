@@ -1,0 +1,49 @@
+{
+  "chart": {
+    "title": {
+      "font": "Microsoft YaHei",
+      "size": 16,
+      "bold": true,
+      "position": "top_center"
+    },
+    "axis": {
+      "title_font": "Microsoft YaHei",
+      "title_size": 12,
+      "label_font": "Arial",
+      "label_size": 10
+    },
+    "legend": {
+      "font": "Microsoft YaHei",
+      "size": 10,
+      "position": "right"
+    },
+    "grid": {
+      "show": true,
+      "color": "#E0E0E0",
+      "style": "dashed"
+    },
+    "colors": [
+      "#1E3A8A",
+      "#3B82F6",
+      "#10B981",
+      "#F59E0B",
+      "#EF4444"
+    ]
+  },
+  "table": {
+    "header": {
+      "font": "Microsoft YaHei",
+      "size": 12,
+      "bold": true,
+      "background": "#F0F0F0"
+    },
+    "body": {
+      "font": "SimSun",
+      "size": 11
+    },
+    "border": {
+      "width": 0.5,
+      "color": "#000000"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+%% 图 8：技术效果对比图（备用版本 - 使用 barChart）
+%% 如 xychart-beta 不支持，使用此版本
+
+graph LR
+    subgraph Before[优化前]
+        B1[核心体验区<br/>45 FPS]
+        B2[过渡区<br/>30 FPS]
+        B3[背景区<br/>18 FPS]
+        B4[平均值<br/>31 FPS]
+    end
+    
+    subgraph After[优化后]
+        A1[核心体验区<br/>85 FPS]
+        A2[过渡区<br/>60 FPS]
+        A3[背景区<br/>35 FPS]
+        A4[平均值<br/>60 FPS]
+    end
+    
+    B1 -.->|+89%| A1
+    B2 -.->|+100%| A2
+    B3 -.->|+94%| A3
+    B4 ==>|+94%| A4
+    
+    style Before fill:#fff,stroke:#000,stroke-width:2,stroke-dasharray: 5 5
+    style After fill:#fff,stroke:#000,stroke-width:3
+    style B1 fill:#fff,stroke:#000,stroke-width:1
+    style B2 fill:#fff,stroke:#000,stroke-width:1
+    style B3 fill:#fff,stroke:#000,stroke-width:1
+    style B4 fill:#fff,stroke:#000,stroke-width:1
+    style A1 fill:#fff,stroke:#000,stroke-width:2
+    style A2 fill:#fff,stroke:#000,stroke-width:2
+    style A3 fill:#fff,stroke:#000,stroke-width:2
+    style A4 fill:#fff,stroke:#000,stroke-width:2

@@ -1,0 +1,33 @@
+%% 图 3：动态参数调整流程图
+%% 用于专利附图 - 黑白线条图风格
+
+flowchart TD
+    S1[S1: 实时监测<br/>用户位置/视线方向] --> S2
+    S2[S2: 计算区域<br/>优先级权重] --> S3
+    S3[S3: 动态分配<br/>渲染资源] --> S4
+    S4[S4: 应用空间<br/>扭曲参数] --> S5
+    S5[S5: 输出优化后<br/>渲染帧] --> S1
+    
+    subgraph 监测阶段
+        S1
+    end
+    
+    subgraph 计算阶段
+        S2
+        S2a[权重公式:<br/>W = f(距离，视线角度，<br/>用户行为)]
+    end
+    
+    subgraph 优化阶段
+        S3
+        S4
+    end
+    
+    subgraph 输出阶段
+        S5
+    end
+    
+    style S1 fill:#fff,stroke:#000,stroke-width:2
+    style S2 fill:#fff,stroke:#000,stroke-width:2
+    style S3 fill:#fff,stroke:#000,stroke-width:2
+    style S4 fill:#fff,stroke:#000,stroke-width:2
+    style S5 fill:#fff,stroke:#000,stroke-width:2

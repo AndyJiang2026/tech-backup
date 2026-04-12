@@ -1,0 +1,36 @@
+%% 图 7：空间扭曲参数映射表示意图
+%% 用于专利附图 - 黑白线条图风格
+
+graph LR
+    subgraph Input[输入参数]
+        I1[用户距离 d]
+        I2[视线角度θ]
+        I3[场景复杂度 c]
+        I4[硬件性能 h]
+    end
+    
+    subgraph Mapping[映射函数]
+        M1[f(x) = α·d + β·θ<br/>+ γ·c + δ·h]
+        M2[权重系数:<br/>α=0.4, β=0.3<br/>γ=0.2, δ=0.1]
+    end
+    
+    subgraph Output[输出参数]
+        O1[LOD 级别]
+        O2[纹理分辨率]
+        O3[阴影质量]
+        O4[扭曲强度]
+    end
+    
+    I1 --> M1
+    I2 --> M1
+    I3 --> M1
+    I4 --> M1
+    
+    M1 --> O1
+    M1 --> O2
+    M1 --> O3
+    M1 --> O4
+    
+    style Input fill:#fff,stroke:#000,stroke-width:2
+    style Mapping fill:#fff,stroke:#000,stroke-width:2
+    style Output fill:#fff,stroke:#000,stroke-width:2

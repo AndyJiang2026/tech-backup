@@ -1,0 +1,35 @@
+%% 图 6：军事训练场景应用示意图（威胁感知优先级）
+%% 用于专利附图 - 黑白线条图风格
+
+graph TB
+    subgraph Training[军事训练场景]
+        subgraph HighThreat[高威胁区<br/>优先级最高]
+            H1[敌方目标]
+            H2[武器系统]
+            H3[战术掩体]
+        end
+        
+        subgraph MedThreat[中威胁区<br/>优先级中等]
+            M1[友军单位]
+            M2[任务目标点]
+        end
+        
+        subgraph LowThreat[低威胁区<br/>优先级最低]
+            L1[环境背景]
+            L2[远景地形]
+            L3[天空/云层]
+        end
+    end
+    
+    HighThreat --> MedThreat
+    MedThreat --> LowThreat
+    
+    Commander((指挥官视角)) --> HighThreat
+    
+    note right of HighThreat: 90 FPS<br/>最高细节
+    note right of MedThreat: 60 FPS<br/>标准细节
+    note right of LowThreat: 30 FPS<br/>空间扭曲优化
+    
+    style HighThreat fill:#fff,stroke:#000,stroke-width:3
+    style MedThreat fill:#fff,stroke:#000,stroke-width:2
+    style LowThreat fill:#fff,stroke:#000,stroke-width:1

@@ -1,0 +1,30 @@
+%% 图 2：VR 大空间功能区域划分示意图
+%% 用于专利附图 - 黑白线条图风格
+
+graph TB
+    subgraph VR_Space[VR 大空间]
+        subgraph Core[核心体验区]
+            C1[高优先级渲染]
+            C2[60-90 FPS]
+            C3[用户当前位置]
+        end
+        
+        subgraph Transition[过渡区]
+            T1[中优先级渲染]
+            T2[30-60 FPS]
+            T3[动态 LOD]
+        end
+        
+        subgraph Background[背景区]
+            B1[低优先级渲染]
+            B2[空间扭曲优化]
+            B3[20-30 FPS]
+        end
+    end
+    
+    Core --> Transition
+    Transition --> Background
+    
+    style Core fill:#fff,stroke:#000,stroke-width:3
+    style Transition fill:#fff,stroke:#000,stroke-width:2
+    style Background fill:#fff,stroke:#000,stroke-width:1

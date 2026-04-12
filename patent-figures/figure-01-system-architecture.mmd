@@ -1,0 +1,35 @@
+%% 图 1：系统整体架构图
+%% 用于专利附图 - 黑白线条图风格
+
+graph LR
+    A[数据采集模块] --> B[空间分区模块]
+    B --> C[参数调整模块]
+    C --> D[空间扭曲引擎]
+    D --> E[输出模块]
+    
+    subgraph 输入层
+        A1[用户位置传感器] --> A
+        A2[姿态追踪器] --> A
+        A3[视线追踪仪] --> A
+    end
+    
+    subgraph 处理层
+        B --> B1[核心体验区]
+        B --> B2[过渡区]
+        B --> B3[背景区]
+        C --> C1[LOD 参数]
+        C --> C2[纹理分辨率]
+        C --> C3[阴影质量]
+    end
+    
+    subgraph 输出层
+        D --> E
+        E --> E1[VR 头显]
+        E --> E2[渲染引擎]
+    end
+    
+    style A fill:#fff,stroke:#000,stroke-width:2
+    style B fill:#fff,stroke:#000,stroke-width:2
+    style C fill:#fff,stroke:#000,stroke-width:2
+    style D fill:#fff,stroke:#000,stroke-width:2
+    style E fill:#fff,stroke:#000,stroke-width:2

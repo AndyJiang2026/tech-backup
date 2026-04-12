@@ -1,0 +1,35 @@
+%% 图 5：文化沉浸场景应用示意图（故宫 VR 体验）
+%% 用于专利附图 - 黑白线条图风格
+
+graph TB
+    subgraph Palace[故宫 VR 场景]
+        subgraph CoreArea[核心体验区]
+            C1[太和殿内部]
+            C2[文物展示柜]
+            C3[互动解说区]
+        end
+        
+        subgraph TransArea[过渡区]
+            T1[宫殿走廊]
+            T2[庭院通道]
+        end
+        
+        subgraph BackArea[背景区]
+            B1[远景建筑群]
+            B2[天空盒]
+            B3[环境植被]
+        end
+    end
+    
+    CoreArea --> TransArea
+    TransArea --> BackArea
+    
+    User((用户)) --> CoreArea
+    
+    note right of CoreArea: 高细节渲染<br/>文物纹理 4K
+    note right of TransArea: 中细节渲染<br/>动态 LOD
+    note right of BackArea: 空间扭曲优化<br/>降低 60% 渲染负载
+    
+    style CoreArea fill:#fff,stroke:#000,stroke-width:3
+    style TransArea fill:#fff,stroke:#000,stroke-width:2
+    style BackArea fill:#fff,stroke:#000,stroke-width:1

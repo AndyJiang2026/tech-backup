@@ -1,0 +1,23 @@
+%% 图 4：多用户协同机制示意图
+%% 用于专利附图 - 黑白线条图风格
+
+sequenceDiagram
+    participant Server as 中央服务器
+    participant Main as 主用户
+    participant Sub1 as 从用户 1
+    participant Sub2 as 从用户 2
+    
+    Main->>Server: 发送位置/姿态数据
+    Server->>Server: 计算主用户优先级
+    Server->>Server: 应用空间扭曲优化
+    
+    Server-->>Main: 高优先级渲染帧<br/>(60-90 FPS)
+    Server-->>Sub1: 中优先级渲染帧<br/>(30-60 FPS)
+    Server-->>Sub2: 中优先级渲染帧<br/>(30-60 FPS)
+    
+    Note over Server,Sub2: 状态同步<br/>时间戳对齐
+    
+    Sub1->>Server: 反馈确认
+    Sub2->>Server: 反馈确认
+    
+    Server->>Server: 更新全局状态

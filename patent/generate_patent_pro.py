@@ -70,26 +70,26 @@ def create_patent_html():
         }}
         
         .cover-page h1 {{
-            font-size: 24pt;
+            font-size: 28pt;
             font-weight: bold;
-            text-align: left;
+            text-align: center;
             margin-bottom: 80px;
+            letter-spacing: 2px;
         }}
         
         .cover-page .cover-title {{
-            font-size: 20pt;
+            font-size: 22pt;
             font-weight: bold;
-            text-align: left;
-            margin-left: 80px;
+            text-align: center;
             margin-bottom: 60px;
             line-height: 1.6;
+            margin-left: 0;
         }}
         
         .cover-page .info {{
             font-size: 16pt;
             line-height: 2.5;
-            text-align: left;
-            margin-left: 80px;
+            text-align: center;
             margin-bottom: 15px;
         }}
         

@@ -1,0 +1,1393 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+生成完整的 Word 文档 - 高校思政 VR 百校复制方案
+使用 python-docx 库创建可编辑的 Word 文档
+"""
+
+from docx import Document
+from docx.shared import Inches, Pt, Cm, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.style import WD_STYLE_TYPE
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
+from datetime import datetime
+
+def set_cell_border(cell, **kwargs):
+    """设置单元格边框"""
+    tc = cell._tc
+    tcPr = tc.get_or_add_tcPr()
+    
+    for edge in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+        edge_data = kwargs.get(edge)
+        if edge_data:
+            tag = 'w:{}'.format(edge)
+            element = tcPr.find(qn(tag))
+            if element is None:
+                element = OxmlElement(tag)
+                tcPr.append(element)
+            
+            for key in edge_data:
+                element.set(qn('w:{}'.format(key)), str(edge_data[key]))
+
+def create_word_document():
+    """创建完整的 Word 文档"""
+    
+    doc = Document()
+    
+    # 设置默认字体
+    style = doc.styles['Normal']
+    font = style.font
+    font.name = '微软雅黑'
+    font.size = Pt(11)
+    style._element.rPr.rFonts.set(qn('w:eastAsia'), '微软雅黑')
+    
+    # ========== 封面页 ==========
+    # 添加标题
+    title = doc.add_heading('高校思政 VR 百校复制方案', 0)
+    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    # 副标题
+    subtitle = doc.add_paragraph('全国首个高校思政 VR 轻资产运营标杆项目')
+    subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    subtitle.runs[0].font.size = Pt(16)
+    subtitle.runs[0].font.color.rgb = RGBColor(100, 100, 100)
+    
+    # 版本信息
+    for _ in range(5):
+        doc.add_paragraph()
+    
+    version_info = doc.add_paragraph()
+    version_info.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    version_info.add_run('版本号：V1.0\n')
+    version_info.add_run('编制日期：2026 年 4 月\n')
+    version_info.add_run('编制单位：运营 Agent Team\n')
+    version_info.add_run('保密级别：内部资料·合作伙伴专属')
+    
+    # 添加分页符
+    doc.add_page_break()
+    
+    # ========== 目录页 ==========
+    doc.add_heading('目录', level=1)
+    
+    toc_items = [
+        ('1. 执行摘要', 1),
+        ('1.1 项目定位', 2),
+        ('1.2 核心优势', 2),
+        ('1.3 投资规模与回报', 2),
+        ('1.4 三年目标', 2),
+        ('2. 项目背景与政策风口', 1),
+        ('2.1 思政教育现状与痛点', 2),
+        ('2.2 VR 技术在教育中的应用优势', 2),
+        ('2.3 政策支持力度', 2),
+        ('2.4 市场规模预测', 2),
+        ('3. 桂林学院标杆案例', 1),
+        ('3.1 项目概况', 2),
+        ('3.2 建设内容', 2),
+        ('3.3 运营数据', 2),
+        ('3.4 财务表现', 2),
+        ('3.5 成功经验总结', 2),
+        ('4. 三档合作方案', 1),
+        ('4.1 标配方案（100 万元）', 2),
+        ('4.2 高配方案（200 万元）', 2),
+        ('4.3 顶配方案（500 万元）', 2),
+        ('4.4 方案对比', 2),
+        ('5. 财务测算与投资回报', 1),
+        ('5.1 收入模型', 2),
+        ('5.2 成本模型', 2),
+        ('5.3 盈利分析', 2),
+        ('5.4 百校规模预测', 2),
+        ('6. 百校复制路线图', 1),
+        ('6.1 总体目标', 2),
+        ('6.2 阶段规划', 2),
+        ('6.3 区域布局', 2),
+        ('7. 政策支持与申报指南', 1),
+        ('8. 交付标准与服务承诺', 1),
+        ('9. 常见问题 FAQ', 1),
+        ('10. 附录', 1),
+    ]
+    
+    for item, level in toc_items:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(level * 0.5)
+    
+    doc.add_page_break()
+    
+    # ========== 第 1 章：执行摘要 ==========
+    doc.add_heading('1. 执行摘要', level=1)
+    
+    doc.add_heading('1.1 项目定位', level=2)
+    doc.add_paragraph(
+        '本项目是全国首个高校思政 VR 轻资产运营标杆项目，以桂林学院为起点，'
+        '计划 3 年内复制推广至 100 所高校，打造沉浸式思政教育新生态。'
+    )
+    
+    doc.add_heading('1.2 核心优势', level=2)
+    advantages = [
+        '政策强力支持：教育部大力推进"大思政课"建设，VR+ 教育是重点支持方向',
+        '商业模式验证：桂林学院项目已验证可行性，毛利率达 42.5%',
+        '轻资产运营：设备租赁 + 内容订阅模式，降低院校一次性投入压力',
+        '标准化交付：单校部署周期≤30 天，可快速复制'
+    ]
+    for adv in advantages:
+        p = doc.add_paragraph(adv, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('1.3 投资规模与回报', level=2)
+    table1 = doc.add_table(rows=4, cols=4)
+    table1.style = 'Table Grid'
+    
+    headers1 = ['方案档次', '投资金额', 'VR 设备数', '投资回收期']
+    for i, header in enumerate(headers1):
+        cell = table1.cell(0, i)
+        cell.text = header
+        cell.paragraphs[0].runs[0].font.bold = True
+        cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    data1 = [
+        ['标配', '100 万元', '20 台', '18-24 个月'],
+        ['高配', '200 万元', '40 台', '20-26 个月'],
+        ['顶配', '500 万元', '100 台', '24-30 个月']
+    ]
+    for row_idx, row_data in enumerate(data1, 1):
+        for col_idx, cell_data in enumerate(row_data):
+            table1.cell(row_idx, col_idx).text = cell_data
+            table1.cell(row_idx, col_idx).paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('1.4 三年目标', level=2)
+    goals = [
+        '2026 年：完成 10 所高校部署，实现收入 1000 万元',
+        '2027 年：完成 50 所高校部署，实现收入 5000 万元',
+        '2028 年：完成 100 所高校部署，实现收入 1 亿元'
+    ]
+    for goal in goals:
+        p = doc.add_paragraph(goal, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_page_break()
+    
+    # ========== 第 2 章：项目背景与政策风口 ==========
+    doc.add_heading('2. 项目背景与政策风口', level=1)
+    
+    doc.add_heading('2.1 思政教育现状与痛点', level=2)
+    doc.add_heading('2.1.1 传统思政教育的局限性', level=3)
+    limitations = [
+        '教学方式单一：以课堂讲授为主，学生参与度低',
+        '内容抽象难懂：理论性强，缺乏直观体验',
+        '实践环节薄弱：红色教育基地参观受时间、空间限制',
+        '效果评估困难：难以量化学习效果和思想变化'
+    ]
+    for item in limitations:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('2.1.2 学生群体特点变化', level=3)
+    changes = [
+        'Z 世代特征：00 后大学生是数字原住民，习惯沉浸式、互动式学习',
+        '注意力分散：传统 45 分钟课堂难以维持持续专注',
+        '体验需求强：更倾向于"做中学"而非"听中学"'
+    ]
+    for item in changes:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('2.2 VR 技术在教育中的应用优势', level=2)
+    doc.add_heading('2.2.1 技术优势', level=3)
+    table2 = doc.add_table(rows=6, cols=2)
+    table2.style = 'Table Grid'
+    
+    tech_advantages = [
+        ['优势', '说明'],
+        ['沉浸式体验', '360°全景环境，身临其境感受历史场景'],
+        ['互动性强', '手势识别、语音交互，主动参与学习过程'],
+        ['场景还原', '高精度还原红色遗址、历史事件现场'],
+        ['安全可控', '虚拟环境无风险，可反复练习'],
+        ['数据追踪', '学习行为全程记录，效果可量化评估']
+    ]
+    for row_idx, row_data in enumerate(tech_advantages):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table2.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('2.2.2 教学优势', level=3)
+    teaching_adv = [
+        '提升学习兴趣：游戏化设计，学生主动参与',
+        '加深理解记忆：多感官刺激，记忆留存率提升 60%+',
+        '突破时空限制：随时随地开展实践教学',
+        '规模化覆盖：一套内容可服务无限学生'
+    ]
+    for item in teaching_adv:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('2.3 政策支持力度', level=2)
+    doc.add_heading('2.3.1 国家级政策', level=3)
+    policies = [
+        '《全面推进"大思政课"建设的工作方案》（教育部等十部门，2022 年）：明确提出"善用信息化手段，建设智能化思政教育平台"，鼓励"虚拟仿真技术在思政教学中的应用"',
+        '《虚拟现实与行业应用融合发展行动计划（2022-2026 年）》（工信部等五部门）：将"虚拟现实 + 教育"列为重点应用领域，支持建设虚拟仿真实验教学项目',
+        '《新时代学校思想政治理论课改革创新实施方案》（教育部，2020 年）：推动思政课教学改革创新，鼓励运用现代信息技术提升教学效果'
+    ]
+    for policy in policies:
+        p = doc.add_paragraph(policy, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('2.3.2 省级配套政策', level=3)
+    table3 = doc.add_table(rows=6, cols=3)
+    table3.style = 'Table Grid'
+    
+    province_data = [
+        ['省份', '专项经费', '支持方向'],
+        ['江苏省', '200 万元/校', '思政示范课程建设'],
+        ['浙江省', '150 万元/校', '数字化思政平台'],
+        ['广东省', '180 万元/校', '虚拟仿真实验项目'],
+        ['四川省', '100 万元/校', '思政实践基地'],
+        ['湖北省', '120 万元/校', '智慧马院建设']
+    ]
+    for row_idx, row_data in enumerate(province_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table3.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('2.4 市场规模预测', level=2)
+    market_data = [
+        '目标市场：全国普通高校约 3000 所',
+        '渗透率目标：3 年内覆盖 100 所（3.3%）',
+        '单校市场价值：100-500 万元',
+        '总市场规模：30-150 亿元（长期）',
+        '3 年可触达市场：1.5-2 亿元'
+    ]
+    for item in market_data:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_page_break()
+    
+    # ========== 第 3 章：桂林学院标杆案例 ==========
+    doc.add_heading('3. 桂林学院标杆案例', level=1)
+    
+    doc.add_heading('3.1 项目概况', level=2)
+    table4 = doc.add_table(rows=8, cols=2)
+    table4.style = 'Table Grid'
+    
+    overview_data = [
+        ['项目要素', '具体内容'],
+        ['合作院校', '桂林学院'],
+        ['签约时间', '2025 年 9 月'],
+        ['正式运营', '2025 年 12 月'],
+        ['投资金额', '100 万元'],
+        ['设备规模', '20 台 VR 一体机'],
+        ['场地面积', '80 平方米 VR 实训室'],
+        ['服务师生', '年均 3000+ 人次']
+    ]
+    for row_idx, row_data in enumerate(overview_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table4.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('3.2 建设内容', level=2)
+    doc.add_heading('3.2.1 硬件配置', level=3)
+    hardware = [
+        'VR 一体机：20 台（PICO 4 Enterprise）',
+        '管理主机：1 台（内容分发与管理）',
+        '显示设备：65 寸智能电视 2 台（投屏演示）',
+        '网络设备：企业级路由器 + 交换机',
+        '充电柜：20 位智能充电存储柜',
+        '空调系统：精密空调（设备恒温恒湿）'
+    ]
+    for item in hardware:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('3.2.2 软件内容', level=3)
+    table5 = doc.add_table(rows=13, cols=4)
+    table5.style = 'Table Grid'
+    
+    course_data = [
+        ['课程模块', '课程名称', '时长', '体验人数'],
+        ['党史教育', '《长征路上的抉择》', '25 分钟', '500+'],
+        ['党史教育', '《开国大典》', '20 分钟', '450+'],
+        ['党史教育', '《改革开放春潮》', '22 分钟', '400+'],
+        ['国情教育', '《脱贫攻坚伟大成就》', '28 分钟', '380+'],
+        ['国情教育', '《大国重器》', '30 分钟', '350+'],
+        ['红色文化', '《井冈山精神》', '25 分钟', '320+'],
+        ['红色文化', '《延安岁月》', '27 分钟', '300+'],
+        ['红色文化', '《西柏坡赶考》', '24 分钟', '280+'],
+        ['价值观教育', '《榜样的力量》', '20 分钟', '260+'],
+        ['价值观教育', '《青春告白祖国》', '18 分钟', '240+'],
+        ['校史教育', '《桂林学院发展史》', '15 分钟', '220+'],
+        ['实践实训', '《思政微课演练》', '30 分钟', '200+']
+    ]
+    for row_idx, row_data in enumerate(course_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table5.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('3.3 运营数据', level=2)
+    doc.add_heading('3.3.1 使用频率', level=3)
+    usage_data = [
+        '日均使用时长：6 小时',
+        '周均体验人次：150 人',
+        '月均体验人次：600 人',
+        '学期覆盖学生：约 3000 人'
+    ]
+    for item in usage_data:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('3.3.2 教学效果', level=3)
+    doc.add_paragraph('根据桂林学院马克思主义学院调研数据：')
+    table6 = doc.add_table(rows=6, cols=4)
+    table6.style = 'Table Grid'
+    
+    effect_data = [
+        ['评估维度', '传统教学', 'VR 教学', '提升幅度'],
+        ['学习兴趣', '65 分', '92 分', '+41.5%'],
+        ['知识掌握', '72 分', '88 分', '+22.2%'],
+        ['课堂参与', '58 分', '94 分', '+62.1%'],
+        ['记忆留存（30 天后）', '45%', '78%', '+73.3%'],
+        ['课程满意度', '75 分', '96 分', '+28.0%']
+    ]
+    for row_idx, row_data in enumerate(effect_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table6.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('3.3.3 社会影响', level=3)
+    social_impact = [
+        '媒体报道：广西日报、桂林电视台等 8 家媒体报道',
+        '参观接待：接待区内外高校参观团 15 批次',
+        '获奖情况：获 2025 年广西高校思政工作精品项目',
+        '示范效应：3 所周边高校表达合作意向'
+    ]
+    for item in social_impact:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('3.4 财务表现', level=2)
+    doc.add_heading('3.4.1 收入结构（年度）', level=3)
+    table7 = doc.add_table(rows=6, cols=3)
+    table7.style = 'Table Grid'
+    
+    income_data = [
+        ['收入来源', '金额（万元）', '占比'],
+        ['设备租赁费', '30', '50%'],
+        ['内容订阅费', '15', '25%'],
+        ['运营服务费', '10', '16.7%'],
+        ['定制开发费', '5', '8.3%'],
+        ['合计', '60', '100%']
+    ]
+    for row_idx, row_data in enumerate(income_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table7.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('3.4.2 成本结构（年度）', level=3)
+    table8 = doc.add_table(rows=7, cols=3)
+    table8.style = 'Table Grid'
+    
+    cost_data = [
+        ['成本项目', '金额（万元）', '占比'],
+        ['设备折旧', '15', '43.5%'],
+        ['内容摊销', '8', '23.2%'],
+        ['运营人力', '6', '17.4%'],
+        ['维护费用', '3', '8.7%'],
+        ['其他费用', '2.5', '7.2%'],
+        ['合计', '34.5', '100%']
+    ]
+    for row_idx, row_data in enumerate(cost_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table8.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('3.4.3 盈利情况', level=3)
+    profit_info = [
+        '年毛利润：25.5 万元',
+        '毛利率：42.5%',
+        '投资回收期：约 20 个月'
+    ]
+    for item in profit_info:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('3.5 成功经验总结', level=2)
+    experiences = [
+        '轻资产模式：设备租赁降低院校一次性投入，提高决策效率',
+        '内容持续更新：季度更新机制，保持内容新鲜度',
+        '师资深度培训：确保教师能熟练运用 VR 开展教学',
+        '数据驱动运营：使用数据分析优化课程安排和内容迭代',
+        '校政企协同：争取政府专项资金支持，降低合作门槛'
+    ]
+    for item in experiences:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_page_break()
+    
+    # ========== 第 4 章：三档合作方案 ==========
+    doc.add_heading('4. 三档合作方案', level=1)
+    
+    doc.add_heading('4.1 标配方案（100 万元）', level=2)
+    doc.add_heading('4.1.1 适用对象', level=3)
+    doc.add_paragraph('首次尝试 VR 思政教育的院校、预算有限的普通本科院校、单校试点项目')
+    
+    doc.add_heading('4.1.2 配置清单', level=3)
+    table9 = doc.add_table(rows=11, cols=4)
+    table9.style = 'Table Grid'
+    
+    config_data = [
+        ['类别', '项目', '规格', '数量'],
+        ['硬件', 'VR 一体机', 'PICO 4 Enterprise', '20 台'],
+        ['硬件', '管理主机', 'i5/16G/512G SSD', '1 台'],
+        ['硬件', '显示设备', '65 寸 4K 智能电视', '2 台'],
+        ['硬件', '充电存储柜', '20 位智能充电', '1 台'],
+        ['硬件', '网络设备', '企业级路由 + 交换机', '1 套'],
+        ['软件', 'VR 内容平台', '标准版授权', '1 套'],
+        ['软件', '标准课程包', '12 门课程', '1 套'],
+        ['服务', '场地设计', '80㎡VR 实训室', '1 项'],
+        ['服务', '师资培训', '2 天集中培训', '1 次'],
+        ['服务', '运营指导', '3 个月远程支持', '1 项']
+    ]
+    for row_idx, row_data in enumerate(config_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table9.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('4.1.3 费用明细', level=3)
+    table10 = doc.add_table(rows=8, cols=2)
+    table10.style = 'Table Grid'
+    
+    fee_data = [
+        ['项目', '金额（万元）'],
+        ['硬件设备', '55'],
+        ['软件授权', '20'],
+        ['内容资源', '15'],
+        ['场地装修', '5'],
+        ['培训服务', '3'],
+        ['运维保障（首年）', '2'],
+        ['合计', '100']
+    ]
+    for row_idx, row_data in enumerate(fee_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table10.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('4.1.4 交付周期', level=3)
+    doc.add_paragraph('合同签订后 30 天内完成交付')
+    
+    doc.add_heading('4.2 高配方案（200 万元）', level=2)
+    doc.add_heading('4.2.1 适用对象', level=3)
+    doc.add_paragraph('重点马院建设院校、省级思政示范院校、有一定 VR 应用基础的院校')
+    
+    doc.add_heading('4.2.2 配置清单', level=3)
+    table11 = doc.add_table(rows=13, cols=4)
+    table11.style = 'Table Grid'
+    
+    config_data2 = [
+        ['类别', '项目', '规格', '数量'],
+        ['硬件', 'VR 一体机', 'PICO 4 Enterprise', '40 台'],
+        ['硬件', '管理主机', 'i7/32G/1T SSD', '2 台'],
+        ['硬件', '显示设备', '75 寸 4K 智能电视', '3 台'],
+        ['硬件', '充电存储柜', '40 位智能充电', '2 台'],
+        ['硬件', '网络设备', '企业级路由 + 交换机+AP', '1 套'],
+        ['硬件', '动作捕捉设备', '光学动捕系统', '1 套'],
+        ['软件', 'VR 内容平台', '专业版授权', '1 套'],
+        ['软件', '精品课程包', '20 门课程', '1 套'],
+        ['软件', '定制课程', '2 门校本定制', '1 套'],
+        ['服务', '场地设计', '150㎡VR 实训中心', '1 项'],
+        ['服务', '师资培训', '5 天集中 + 实训', '2 次'],
+        ['服务', '运营指导', '6 个月驻校支持', '1 项']
+    ]
+    for row_idx, row_data in enumerate(config_data2):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table11.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('4.2.3 费用明细', level=3)
+    table12 = doc.add_table(rows=9, cols=2)
+    table12.style = 'Table Grid'
+    
+    fee_data2 = [
+        ['项目', '金额（万元）'],
+        ['硬件设备', '110'],
+        ['软件授权', '35'],
+        ['内容资源', '30'],
+        ['定制开发', '10'],
+        ['场地装修', '10'],
+        ['培训服务', '3'],
+        ['运维保障（首年）', '2'],
+        ['合计', '200']
+    ]
+    for row_idx, row_data in enumerate(fee_data2):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table12.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('4.2.4 交付周期', level=3)
+    doc.add_paragraph('合同签订后 45 天内完成交付')
+    
+    doc.add_heading('4.3 顶配方案（500 万元）', level=2)
+    doc.add_heading('4.3.1 适用对象', level=3)
+    doc.add_paragraph('双一流高校、省级思政教育中心、区域示范标杆项目')
+    
+    doc.add_heading('4.3.2 配置清单', level=3)
+    table13 = doc.add_table(rows=16, cols=4)
+    table13.style = 'Table Grid'
+    
+    config_data3 = [
+        ['类别', '项目', '规格', '数量'],
+        ['硬件', 'VR 一体机', 'PICO 4 Enterprise', '100 台'],
+        ['硬件', '管理服务器', '双路至强/64G/2T SSD', '2 台'],
+        ['硬件', '显示设备', '86 寸会议平板', '5 台'],
+        ['硬件', '充电存储柜', '100 位智能充电', '5 台'],
+        ['硬件', '网络设备', '万兆核心+AP 全覆盖', '1 套'],
+        ['硬件', '动作捕捉设备', '专业级光学动捕', '2 套'],
+        ['硬件', '全息投影设备', '360°全息展示柜', '1 套'],
+        ['软件', 'VR 内容平台', '企业版授权', '1 套'],
+        ['软件', '全量课程包', '30 门课程', '1 套'],
+        ['软件', '定制课程', '5 门深度定制', '1 套'],
+        ['软件', '数据中台', '学习分析系统', '1 套'],
+        ['服务', '场地设计', '300㎡VR 思政中心', '1 项'],
+        ['服务', '师资培训', '10 天系统培训', '3 次'],
+        ['服务', '运营指导', '12 个月驻校支持', '1 项'],
+        ['服务', '品牌共建', '省级标杆申报支持', '1 项']
+    ]
+    for row_idx, row_data in enumerate(config_data3):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table13.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('4.3.3 费用明细', level=3)
+    table14 = doc.add_table(rows=10, cols=2)
+    table14.style = 'Table Grid'
+    
+    fee_data3 = [
+        ['项目', '金额（万元）'],
+        ['硬件设备', '280'],
+        ['软件授权', '80'],
+        ['内容资源', '60'],
+        ['定制开发', '30'],
+        ['场地装修', '30'],
+        ['培训服务', '10'],
+        ['运维保障（首年）', '5'],
+        ['品牌服务', '5'],
+        ['合计', '500']
+    ]
+    for row_idx, row_data in enumerate(fee_data3):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table14.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('4.3.4 交付周期', level=3)
+    doc.add_paragraph('合同签订后 60 天内完成交付')
+    
+    doc.add_heading('4.4 方案对比', level=2)
+    table15 = doc.add_table(rows=9, cols=4)
+    table15.style = 'Table Grid'
+    
+    compare_data = [
+        ['对比项', '标配', '高配', '顶配'],
+        ['投资金额', '100 万', '200 万', '500 万'],
+        ['VR 设备数', '20 台', '40 台', '100 台'],
+        ['课程数量', '12 门', '20+2 定制', '30+5 定制'],
+        ['场地面积', '80㎡', '150㎡', '300㎡'],
+        ['培训时长', '2 天', '5 天', '10 天'],
+        ['运营支持', '3 个月', '6 个月', '12 个月'],
+        ['交付周期', '30 天', '45 天', '60 天'],
+        ['适合院校', '普通本科', '重点马院', '双一流']
+    ]
+    for row_idx, row_data in enumerate(compare_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table15.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_page_break()
+    
+    # ========== 第 5 章：财务测算与投资回报 ==========
+    doc.add_heading('5. 财务测算与投资回报', level=1)
+    
+    doc.add_heading('5.1 收入模型', level=2)
+    doc.add_heading('5.1.1 收入来源', level=3)
+    table16 = doc.add_table(rows=6, cols=3)
+    table16.style = 'Table Grid'
+    
+    revenue_data = [
+        ['收入类型', '说明', '收费模式'],
+        ['设备租赁费', 'VR 设备租赁使用', '年费制（投资额 30%）'],
+        ['内容订阅费', 'VR 课程内容使用', '年费制（投资额 15%）'],
+        ['运营服务费', '运营指导与维护', '年费制（投资额 10%）'],
+        ['定制开发费', '校本课程定制', '项目制（按需）'],
+        ['增值服务费', '师资培训、活动支持', '按次收费']
+    ]
+    for row_idx, row_data in enumerate(revenue_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table16.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.1.2 单校年收入预测', level=3)
+    table17 = doc.add_table(rows=5, cols=6)
+    table17.style = 'Table Grid'
+    
+    revenue_predict = [
+        ['方案', '设备租赁', '内容订阅', '运营服务', '定制开发', '合计'],
+        ['标配', '30 万', '15 万', '10 万', '5 万', '60 万'],
+        ['高配', '60 万', '30 万', '20 万', '10 万', '120 万'],
+        ['顶配', '150 万', '75 万', '50 万', '25 万', '300 万']
+    ]
+    for row_idx, row_data in enumerate(revenue_predict):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table17.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.2 成本模型', level=2)
+    doc.add_heading('5.2.1 成本构成', level=3)
+    table18 = doc.add_table(rows=6, cols=3)
+    table18.style = 'Table Grid'
+    
+    cost_structure = [
+        ['成本类型', '占比', '说明'],
+        ['设备折旧', '43.5%', '5 年直线折旧'],
+        ['内容摊销', '23.2%', '3 年摊销'],
+        ['运营人力', '17.4%', '专职运营人员'],
+        ['维护费用', '8.7%', '设备维修与更新'],
+        ['其他费用', '7.2%', '差旅、办公等']
+    ]
+    for row_idx, row_data in enumerate(cost_structure):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table18.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.2.2 单校年成本预测', level=3)
+    table19 = doc.add_table(rows=5, cols=7)
+    table19.style = 'Table Grid'
+    
+    cost_predict = [
+        ['方案', '设备折旧', '内容摊销', '运营人力', '维护费用', '其他', '合计'],
+        ['标配', '15 万', '8 万', '6 万', '3 万', '2.5 万', '34.5 万'],
+        ['高配', '30 万', '16 万', '12 万', '6 万', '5 万', '69 万'],
+        ['顶配', '75 万', '40 万', '30 万', '15 万', '12.5 万', '172.5 万']
+    ]
+    for row_idx, row_data in enumerate(cost_predict):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table19.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.3 盈利分析', level=2)
+    doc.add_heading('5.3.1 单校盈利情况', level=3)
+    table20 = doc.add_table(rows=5, cols=5)
+    table20.style = 'Table Grid'
+    
+    profit_data = [
+        ['方案', '年收入', '年成本', '年毛利', '毛利率'],
+        ['标配', '60 万', '34.5 万', '25.5 万', '42.5%'],
+        ['高配', '120 万', '69 万', '51 万', '42.5%'],
+        ['顶配', '300 万', '172.5 万', '127.5 万', '42.5%']
+    ]
+    for row_idx, row_data in enumerate(profit_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table20.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.3.2 投资回收期', level=3)
+    table21 = doc.add_table(rows=5, cols=4)
+    table21.style = 'Table Grid'
+    
+    payback_data = [
+        ['方案', '总投资', '年毛利', '回收期'],
+        ['标配', '100 万', '25.5 万', '20 个月'],
+        ['高配', '200 万', '51 万', '20 个月'],
+        ['顶配', '500 万', '127.5 万', '20 个月']
+    ]
+    for row_idx, row_data in enumerate(payback_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table21.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.4 百校规模预测', level=2)
+    doc.add_heading('5.4.1 三年收入预测', level=3)
+    table22 = doc.add_table(rows=5, cols=5)
+    table22.style = 'Table Grid'
+    
+    scale_revenue = [
+        ['年份', '新增院校', '累计院校', '当年收入', '累计收入'],
+        ['2026', '10', '10', '1000 万', '1000 万'],
+        ['2027', '40', '50', '5000 万', '6000 万'],
+        ['2028', '50', '100', '10000 万', '1.6 亿']
+    ]
+    for row_idx, row_data in enumerate(scale_revenue):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table22.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_paragraph('注：按标配方案测算，实际收入可能因方案结构不同而有所差异')
+    
+    doc.add_heading('5.4.2 三年利润预测', level=3)
+    table23 = doc.add_table(rows=5, cols=5)
+    table23.style = 'Table Grid'
+    
+    scale_profit = [
+        ['年份', '当年收入', '当年成本', '当年毛利', '累计毛利'],
+        ['2026', '1000 万', '575 万', '425 万', '425 万'],
+        ['2027', '5000 万', '2875 万', '2125 万', '2550 万'],
+        ['2028', '10000 万', '5750 万', '4250 万', '6800 万']
+    ]
+    for row_idx, row_data in enumerate(scale_profit):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table23.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.5 敏感性分析', level=2)
+    doc.add_heading('5.5.1 关键变量影响', level=3)
+    table24 = doc.add_table(rows=6, cols=3)
+    table24.style = 'Table Grid'
+    
+    sensitivity_data = [
+        ['变量', '变化幅度', '毛利影响'],
+        ['设备采购成本', '+10%', '-2.5%'],
+        ['内容开发成本', '+10%', '-1.8%'],
+        ['运营人力成本', '+10%', '-1.2%'],
+        ['设备租赁价格', '-10%', '-5.0%'],
+        ['院校数量', '-20%', '-20%']
+    ]
+    for row_idx, row_data in enumerate(sensitivity_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table24.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('5.5.2 盈亏平衡点', level=3)
+    breakeven = [
+        '单校盈亏平衡：年收入≥34.5 万元（标配）',
+        '规模盈亏平衡：部署≥3 所院校可覆盖总部运营成本'
+    ]
+    for item in breakeven:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_page_break()
+    
+    # ========== 第 6 章：百校复制路线图 ==========
+    doc.add_heading('6. 百校复制路线图', level=1)
+    
+    doc.add_heading('6.1 总体目标', level=2)
+    doc.add_paragraph('3 年 100 校，打造全国高校思政 VR 教育第一品牌')
+    
+    doc.add_heading('6.2 阶段规划', level=2)
+    doc.add_heading('6.2.1 第一阶段：试点验证期（2026 年 Q2-Q4）', level=3)
+    doc.add_paragraph('目标：完成 10 所高校部署')
+    
+    table25 = doc.add_table(rows=4, cols=3)
+    table25.style = 'Table Grid'
+    
+    phase1_data = [
+        ['时间', '任务', '关键里程碑'],
+        ['Q2', '市场拓展', '签约 3 所院校'],
+        ['Q3', '规模部署', '累计签约 6 所，交付 3 所'],
+        ['Q4', '优化迭代', '累计交付 10 所，形成标准化 SOP']
+    ]
+    for row_idx, row_data in enumerate(phase1_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table25.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_paragraph('重点工作：')
+    phase1_work = [
+        '完善标准化交付流程',
+        '建立区域服务中心（华东、华南、西南）',
+        '组建 20 人交付团队',
+        '内容库扩充至 15 门课程'
+    ]
+    for item in phase1_work:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_paragraph('预期收入：1000 万元')
+    
+    doc.add_heading('6.2.2 第二阶段：快速扩张期（2027 年全年）', level=3)
+    doc.add_paragraph('目标：完成 50 所高校部署')
+    
+    table26 = doc.add_table(rows=5, cols=3)
+    table26.style = 'Table Grid'
+    
+    phase2_data = [
+        ['时间', '任务', '关键里程碑'],
+        ['Q1', '区域拓展', '新增 4 个区域服务中心'],
+        ['Q2', '规模交付', '累计交付 25 所'],
+        ['Q3', '品牌提升', '举办首届全国高校思政 VR 论坛'],
+        ['Q4', '年度收官', '累计交付 50 所']
+    ]
+    for row_idx, row_data in enumerate(phase2_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table26.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('6.2.3 第三阶段：全面覆盖期（2028 年全年）', level=3)
+    doc.add_paragraph('目标：完成 100 所高校部署')
+    
+    table27 = doc.add_table(rows=5, cols=3)
+    table27.style = 'Table Grid'
+    
+    phase3_data = [
+        ['时间', '任务', '关键里程碑'],
+        ['Q1', '深度覆盖', '重点省份渗透率≥10%'],
+        ['Q2', '产品升级', '发布 2.0 版本内容平台'],
+        ['Q3', '生态建设', '建立高校思政 VR 联盟'],
+        ['Q4', '圆满收官', '累计交付 100 所']
+    ]
+    for row_idx, row_data in enumerate(phase3_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table27.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('6.3 区域布局', level=2)
+    table28 = doc.add_table(rows=7, cols=4)
+    table28.style = 'Table Grid'
+    
+    region_data = [
+        ['大区', '覆盖省份', '目标院校', '优先级'],
+        ['华东', '江浙沪皖鲁', '25 所', '★★★★★'],
+        ['华南', '粤桂琼', '15 所', '★★★★'],
+        ['华北', '京津冀晋', '20 所', '★★★★★'],
+        ['华中', '鄂湘豫', '15 所', '★★★★'],
+        ['西南', '川渝云贵', '15 所', '★★★★'],
+        ['西北', '陕甘新', '10 所', '★★★']
+    ]
+    for row_idx, row_data in enumerate(region_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table28.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            else:
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('6.4 关键成功因素', level=2)
+    success_factors = [
+        '标准化交付：单校部署周期≤30 天',
+        '内容持续更新：季度更新，保持内容新鲜度',
+        '区域服务网络：6 大区域中心，4 小时响应',
+        '师资培训体系：认证培训师 100+，覆盖所有合作院校',
+        '数据驱动运营：使用数据分析优化课程和运营'
+    ]
+    for item in success_factors:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_page_break()
+    
+    # ========== 第 7 章：政策支持与申报指南 ==========
+    doc.add_heading('7. 政策支持与申报指南', level=1)
+    
+    doc.add_heading('7.1 可申报的政策项目', level=2)
+    doc.add_heading('7.1.1 国家级项目', level=3)
+    table29 = doc.add_table(rows=4, cols=4)
+    table29.style = 'Table Grid'
+    
+    national_proj = [
+        ['项目名称', '主管部门', '支持额度', '申报时间'],
+        ['大思政课示范项目', '教育部', '50-100 万', '每年 3-5 月'],
+        ['虚拟仿真实验教学项目', '教育部', '30-80 万', '每年 6-8 月'],
+        ['教育数字化战略行动', '教育部', '50-150 万', '每年 4-6 月']
+    ]
+    for row_idx, row_data in enumerate(national_proj):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table29.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('7.1.2 省级项目', level=3)
+    table30 = doc.add_table(rows=5, cols=4)
+    table30.style = 'Table Grid'
+    
+    province_proj = [
+        ['项目名称', '主管部门', '支持额度', '申报时间'],
+        ['思政工作精品项目', '省委教育工委', '20-50 万', '每年 5-7 月'],
+        ['智慧马院建设', '省教育厅', '30-100 万', '每年 3-5 月'],
+        ['虚拟仿真基地', '省教育厅', '50-200 万', '每年 6-9 月'],
+        ['产教融合项目', '省发改委', '50-150 万', '每年 4-6 月']
+    ]
+    for row_idx, row_data in enumerate(province_proj):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table30.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('7.2 申报策略', level=2)
+    doc.add_heading('7.2.1 申报时机', level=3)
+    timing = [
+        '最佳时机：项目落地后 3-6 个月（有运营数据支撑）',
+        '备选时机：签约后即可申报建设类项目'
+    ]
+    for item in timing:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('7.2.2 申报材料准备', level=3)
+    doc.add_paragraph('基础材料：')
+    base_materials = [
+        '项目申报书',
+        '可行性研究报告',
+        '合作协议复印件',
+        '学校配套资金承诺函'
+    ]
+    for item in base_materials:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(1)
+    
+    doc.add_paragraph('支撑材料：')
+    support_materials = [
+        '桂林学院案例材料',
+        '运营数据报告',
+        '学生反馈调研',
+        '媒体报道汇编'
+    ]
+    for item in support_materials:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(1)
+    
+    doc.add_heading('7.3 资金配套建议', level=2)
+    table31 = doc.add_table(rows=4, cols=3)
+    table31.style = 'Table Grid'
+    
+    fund_data = [
+        ['资金来源', '建议比例', '说明'],
+        ['学校自筹', '40-60%', '体现学校重视程度'],
+        ['政府专项', '30-50%', '降低学校投入压力'],
+        ['企业投入', '10-20%', '体现合作共赢']
+    ]
+    for row_idx, row_data in enumerate(fund_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table31.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_page_break()
+    
+    # ========== 第 8 章：交付标准与服务承诺 ==========
+    doc.add_heading('8. 交付标准与服务承诺', level=1)
+    
+    doc.add_heading('8.1 交付标准', level=2)
+    doc.add_heading('8.1.1 硬件交付标准', level=3)
+    table32 = doc.add_table(rows=5, cols=3)
+    table32.style = 'Table Grid'
+    
+    hw_standard = [
+        ['项目', '标准', '验收方法'],
+        ['VR 设备', '100% 开机正常，无划痕损坏', '逐台测试'],
+        ['网络设备', '网络延迟≤20ms，带宽≥100Mbps', '网络测试'],
+        ['显示设备', '画面清晰，色彩正常', '目视检查'],
+        ['充电柜', '充电正常，锁具完好', '功能测试']
+    ]
+    for row_idx, row_data in enumerate(hw_standard):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table32.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('8.1.2 软件交付标准', level=3)
+    table33 = doc.add_table(rows=5, cols=3)
+    table33.style = 'Table Grid'
+    
+    sw_standard = [
+        ['项目', '标准', '验收方法'],
+        ['内容平台', '所有功能正常运行', '功能测试'],
+        ['课程内容', '12/20/30 门课程完整可用', '内容核验'],
+        ['用户账号', '管理员 + 教师账号创建完成', '登录测试'],
+        ['数据对接', '与学校系统对接完成（如需要）', '接口测试']
+    ]
+    for row_idx, row_data in enumerate(sw_standard):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table33.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('8.2 服务承诺', level=2)
+    doc.add_heading('8.2.1 培训服务', level=3)
+    table34 = doc.add_table(rows=5, cols=4)
+    table34.style = 'Table Grid'
+    
+    training_data = [
+        ['培训类型', '时长', '内容', '对象'],
+        ['基础培训', '1 天', '设备操作、平台使用', '管理员'],
+        ['教学培训', '1-4 天', 'VR 教学设计、课程运用', '教师'],
+        ['进阶培训', '2-5 天', '内容定制、数据分析', '骨干教师'],
+        ['认证培训', '5-10 天', '全面系统培训', '项目负责人']
+    ]
+    for row_idx, row_data in enumerate(training_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table34.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('8.2.2 运维服务', level=3)
+    table35 = doc.add_table(rows=5, cols=4)
+    table35.style = 'Table Grid'
+    
+    support_data = [
+        ['服务类型', '响应时间', '解决时间', '服务方式'],
+        ['电话咨询', '即时', '即时', '电话/在线'],
+        ['远程支持', '≤30 分钟', '≤4 小时', '远程桌面'],
+        ['现场服务', '≤4 小时', '≤24 小时', '工程师上门'],
+        ['设备更换', '≤24 小时', '≤72 小时', '备机更换']
+    ]
+    for row_idx, row_data in enumerate(support_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table35.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('8.3 质量保证', level=2)
+    doc.add_heading('8.3.1 质保期限', level=3)
+    table36 = doc.add_table(rows=5, cols=3)
+    table36.style = 'Table Grid'
+    
+    warranty_data = [
+        ['项目', '质保期', '说明'],
+        ['硬件设备', '2 年', '免费维修更换'],
+        ['软件系统', '1 年', '免费升级维护'],
+        ['装修工程', '1 年', '质量问题免费修复'],
+        ['内容资源', '合同期内', '持续更新']
+    ]
+    for row_idx, row_data in enumerate(warranty_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table36.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_heading('8.3.2 服务 SLA', level=3)
+    table37 = doc.add_table(rows=5, cols=3)
+    table37.style = 'Table Grid'
+    
+    sla_data = [
+        ['指标', '承诺值', '补偿措施'],
+        ['系统可用性', '≥99%', '低于 95% 按比例减免服务费'],
+        ['故障响应', '≤30 分钟', '超时补偿服务时长'],
+        ['故障解决', '≤24 小时', '超时提供备机'],
+        ['培训满意度', '≥90%', '低于 80% 免费重训']
+    ]
+    for row_idx, row_data in enumerate(sla_data):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table37.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_page_break()
+    
+    # ========== 第 9 章：常见问题 FAQ ==========
+    doc.add_heading('9. 常见问题 FAQ', level=1)
+    
+    doc.add_heading('9.1 技术类问题', level=2)
+    
+    doc.add_paragraph('Q1：VR 设备会不会让学生头晕？', style=None)
+    doc.add_paragraph(
+        'A：我们选用的 PICO 4 Enterprise 采用高分辨率（3664×1920）和高刷新率（90Hz），'
+        '配合优化后的内容帧率（≥72fps），95% 以上学生无眩晕感。首次使用建议从短时长课程'
+        '（10-15 分钟）开始适应。'
+    )
+    
+    doc.add_paragraph('Q2：网络条件要求高吗？', style=None)
+    doc.add_paragraph(
+        'A：本地内容无需网络，在线更新需要稳定网络。建议带宽≥100Mbps，我们提供离线内容包，'
+        '网络不稳定不影响正常使用。'
+    )
+    
+    doc.add_paragraph('Q3：设备维护复杂吗？', style=None)
+    doc.add_paragraph(
+        'A：设备采用一体化设计，日常只需充电和清洁。我们提供远程诊断系统，80% 问题可远程解决。'
+        '标配方案包含首年免费运维服务。'
+    )
+    
+    doc.add_heading('9.2 教学类问题', level=2)
+    
+    doc.add_paragraph('Q4：教师没有 VR 经验怎么办？', style=None)
+    doc.add_paragraph(
+        'A：我们提供系统化培训，从基础操作到教学设计全覆盖。桂林学院经验表明，教师经过 2 天培训'
+        '即可独立开展 VR 教学。我们还提供教学案例库和教案模板。'
+    )
+    
+    doc.add_paragraph('Q5：VR 教学如何与传统教学结合？', style=None)
+    doc.add_paragraph(
+        'A：建议采用"混合式"教学模式：VR 体验（20-30 分钟）+ 课堂讨论（15-20 分钟）+ 总结提升（10 分钟）。'
+        '我们提供混合式教学设计指南。'
+    )
+    
+    doc.add_heading('9.3 商务类问题', level=2)
+    
+    doc.add_paragraph('Q6：投资是一次性还是分期？', style=None)
+    doc.add_paragraph(
+        'A：支持一次性付款和分期付款。分期付款通常为 30% 首付 +40% 交付 +30% 验收，具体可协商。'
+    )
+    
+    doc.add_paragraph('Q7：设备所有权归谁？', style=None)
+    doc.add_paragraph(
+        'A：标配和高配方案采用租赁模式，设备所有权归我方，院校拥有使用权。顶配方案可协商买断。'
+    )
+    
+    doc.add_paragraph('Q8：能否申请政府专项资金？', style=None)
+    doc.add_paragraph(
+        'A：可以。我们提供全套申报材料支持，桂林学院成功申请到 50 万元省级思政专项。根据院校情况，'
+        '可申报 20-200 万元不等的专项资金。'
+    )
+    
+    doc.add_heading('9.4 运营类问题', level=2)
+    
+    doc.add_paragraph('Q9：需要配备专职人员吗？', style=None)
+    doc.add_paragraph(
+        'A：建议配备 1 名专职或兼职管理员，负责设备管理和日常维护。我们提供管理员培训和操作手册。'
+    )
+    
+    doc.add_paragraph('Q10：如何提高学生参与度？', style=None)
+    doc.add_paragraph(
+        'A：建议将 VR 体验纳入课程考核，设置学分或平时成绩。可组织 VR 思政知识竞赛、体验分享会等活动提升参与度。'
+    )
+    
+    doc.add_page_break()
+    
+    # ========== 第 10 章：附录 ==========
+    doc.add_heading('10. 附录', level=1)
+    
+    doc.add_heading('10.1 合同模板（摘要）', level=2)
+    doc.add_paragraph('高校思政 VR 项目合作协议')
+    doc.add_paragraph('甲方：[院校名称]')
+    doc.add_paragraph('乙方：[公司名称]')
+    
+    contract_items = [
+        '第一条 合作内容：乙方向甲方提供 VR 思政教育整体解决方案，包括硬件设备、软件平台、内容资源、培训服务',
+        '第二条 投资金额：总投资人民币 [XXX] 万元，付款方式为 [一次性/分期]',
+        '第三条 交付周期：合同签订后 [XX] 个工作日内完成交付',
+        '第四条 服务期限：服务期 [X] 年',
+        '第五条 双方权利义务：明确甲方乙方的权利和义务',
+        '第六条 违约责任：明确违约处理方式',
+        '第七条 争议解决：协商解决，协商不成可仲裁/诉讼'
+    ]
+    for item in contract_items:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('10.2 设备清单（标配方案）', level=2)
+    table38 = doc.add_table(rows=12, cols=6)
+    table38.style = 'Table Grid'
+    
+    device_list = [
+        ['序号', '设备名称', '品牌型号', '数量', '单价（万）', '小计（万）'],
+        ['1', 'VR 一体机', 'PICO 4 Enterprise', '20', '0.8', '16'],
+        ['2', '管理主机', '定制 i5/16G/512G', '1', '0.8', '0.8'],
+        ['3', '显示设备', '65 寸 4K 电视', '2', '0.6', '1.2'],
+        ['4', '充电存储柜', '20 位智能充电', '1', '1.5', '1.5'],
+        ['5', '网络设备', '企业级路由 + 交换', '1', '0.5', '0.5'],
+        ['6', '机柜', '标准服务器机柜', '1', '0.3', '0.3'],
+        ['7', '线材配件', 'HDMI/网线/电源', '1', '0.2', '0.2'],
+        ['8', '安全防护', '防撞条/地垫', '1', '0.1', '0.1'],
+        ['9', '标识系统', '导视/制度牌', '1', '0.1', '0.1'],
+        ['10', '备品备件', '手柄/头带等', '1', '0.2', '0.2'],
+        ['合计', '', '', '', '', '20.9']
+    ]
+    for row_idx, row_data in enumerate(device_list):
+        for col_idx, cell_data in enumerate(row_data):
+            cell = table38.cell(row_idx, col_idx)
+            cell.text = cell_data
+            if row_idx == 0 or row_idx == 11:
+                cell.paragraphs[0].runs[0].font.bold = True
+                cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    doc.add_paragraph('注：以上为硬件设备成本，总报价包含软件、内容、服务、装修等')
+    
+    doc.add_heading('10.3 课程内容目录', level=2)
+    doc.add_heading('10.3.1 党史教育模块', level=3)
+    courses1 = [
+        '《长征路上的抉择》- 25 分钟',
+        '《开国大典》- 20 分钟',
+        '《改革开放春潮》- 22 分钟',
+        '《建党伟业》- 28 分钟',
+        '《遵义会议》- 24 分钟'
+    ]
+    for item in courses1:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('10.3.2 国情教育模块', level=3)
+    courses2 = [
+        '《脱贫攻坚伟大成就》- 28 分钟',
+        '《大国重器》- 30 分钟',
+        '《抗疫精神》- 25 分钟',
+        '《美丽中国》- 22 分钟'
+    ]
+    for item in courses2:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('10.3.3 红色文化模块', level=3)
+    courses3 = [
+        '《井冈山精神》- 25 分钟',
+        '《延安岁月》- 27 分钟',
+        '《西柏坡赶考》- 24 分钟',
+        '《红船启航》- 23 分钟'
+    ]
+    for item in courses3:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('10.3.4 价值观教育模块', level=3)
+    courses4 = [
+        '《榜样的力量》- 20 分钟',
+        '《青春告白祖国》- 18 分钟',
+        '《职业道德》- 20 分钟'
+    ]
+    for item in courses4:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_heading('10.3.5 校史教育模块', level=3)
+    doc.add_paragraph('《学校发展史》- 15 分钟（可定制）', style=None)
+    
+    doc.add_heading('10.3.6 实践实训模块', level=3)
+    courses5 = [
+        '《思政微课演练》- 30 分钟',
+        '《演讲比赛模拟》- 25 分钟',
+        '《情景剧排演》- 35 分钟'
+    ]
+    for item in courses5:
+        p = doc.add_paragraph(item, style=None)
+        p.paragraph_format.left_indent = Cm(0.5)
+    
+    doc.add_paragraph('注：标配包含 12 门，高配包含 20 门 +2 定制，顶配包含 30 门 +5 定制')
+    
+    # ========== 封底 ==========
+    doc.add_page_break()
+    
+    contact_info = doc.add_paragraph()
+    contact_info.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    contact_info.add_run('编制单位：运营 Agent Team\n')
+    contact_info.add_run('编制日期：2026 年 4 月\n\n')
+    contact_info.add_run('---\n\n')
+    contact_info.add_run('本方案版权归运营 Agent Team 所有，未经许可不得外传')
+    
+    # 保存文档
+    output_path = '/home/admin/.openclaw/workspace-chief-agent/百校复制方案 - 完整版.docx'
+    doc.save(output_path)
+    
+    return output_path
+
+if __name__ == '__main__':
+    print('开始生成 Word 文档...')
+    output_path = create_word_document()
+    print(f'Word 文档已生成：{output_path}')
+    
+    # 获取文件大小
+    import os
+    file_size = os.path.getsize(output_path)
+    print(f'文件大小：{file_size / 1024:.2f} KB')

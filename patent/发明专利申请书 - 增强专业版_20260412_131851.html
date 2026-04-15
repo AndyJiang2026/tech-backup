@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发明专利申请书 - 基于空间扭曲技术的 VR 大空间动态优化方法及系统</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm 2.5cm 2.5cm 2.5cm;
+            @bottom-center {
+                content: counter(page);
+                font-family: "SimSun", serif;
+                font-size: 9pt;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "SimSun", "Songti SC", "STSong", serif;
+            font-size: 15pt;
+            line-height: 2.0;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                max-width: 100%;
+            }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+        
+        /* 封面页 */
+        .cover-page {
+            page-break-after: always;
+            height: 297mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 60px;
+        }
+        
+        .cover-page h1 {
+            font-size: 28pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 2px;
+        }
+        
+        .cover-page .cover-title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+            line-height: 1.6;
+            margin-left: 0;
+        }
+        
+        .cover-page .info {
+            font-size: 16pt;
+            line-height: 2.5;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .cover-page .info-label {
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        
+        /* 目录页 */
+        .toc-page {
+            page-break-after: always;
+            min-height: 297mm;
+            padding: 40px 60px;
+        }
+        
+        .toc-title {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 50px;
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc-list li {
+            margin: 18px 0;
+            font-size: 15pt;
+            text-align: left;
+        }
+        
+        .toc-level-1 { font-weight: bold; }
+        .toc-level-2 { margin-left: 40px; }
+        .toc-level-3 { margin-left: 80px; }
+        
+        /* 正文 */
+        .content-page {
+            min-height: 297mm;
+            padding: 30px 50px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 50px 0 40px 0;
+        }
+        
+        h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 45px 0 25px 0;
+        }
+        
+        h3 {
+            font-size: 15pt;
+            font-weight: bold;
+            margin: 35px 0 20px 0;
+        }
+        
+        p {
+            margin: 16px 0;
+            text-indent: 2em;
+            text-align: justify;
+            line-height: 2.2;
+        }
+        
+        .no-indent {
+            text-indent: 0;
+        }
+        
+        .claims {
+            margin: 30px 0;
+        }
+        
+        .claim-item {
+            margin: 15px 0;
+            padding-left: 2em;
+        }
+        
+        .claim-number {
+            font-weight: bold;
+            margin-right: 0.5em;
+        }
+        
+        /* 图表容器 */
+        .figure {
+            margin: 50px 0;
+            page-break-inside: avoid;
+        }
+        
+        .figure svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .figure-caption {
+            text-align: center;
+            font-size: 12pt;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .figure-description {
+            text-align: left;
+            font-size: 12pt;
+            margin-top: 15px;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 35px 0;
+            font-size: 13pt;
+        }
+        
+        th, td {
+            border: 1px solid #000;
+            padding: 15px 18px;
+            text-align: left;
+            line-height: 1.8;
+        }
+        
+        th, td {
+            border: 1px solid #000;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f5f5f5;
+            font-weight: bold;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .doc-info {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #000;
+            font-size: 12pt;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 封面页 -->
+<div class="cover-page">
+    <h1>发明专利申请书</h1>
+    <div class="cover-title">基于空间扭曲技术的 VR 大空间动态优化方法及系统</div>
+    <div style="height: 60px;"></div>
+    <div class="info"><span class="info-label">申 请 人：</span>未来新视界科技（北京）有限公司</div>
+    <div class="info"><span class="info-label">发 明 人：</span>江烈毅</div>
+    <div class="info"><span class="info-label">申请日期：</span>2026年04月12日</div>
+    <div class="info"><span class="info-label">技术领域：</span>虚拟现实技术/G06T19/00</div>
+    <div class="info"><span class="info-label">技术分类号：</span>G06T19/00、G06F3/01、G06T15/00、H04L67/10</div>
+</div>
+
+<!-- 目录页 -->
+<div class="toc-page">
+    <h1 class="toc-title">目 录</h1>
+    <ul class="toc-list">
+        <li class="toc-level-1">说明书摘要</li>
+        <li class="toc-level-1">权利要求书</li>
+        <li class="toc-level-1">说明书</li>
+        <li class="toc-level-2">技术领域</li>
+        <li class="toc-level-2">背景技术</li>
+        <li class="toc-level-2">发明内容</li>
+        <li class="toc-level-2">附图说明</li>
+        <li class="toc-level-2">具体实施方式</li>
+        <li class="toc-level-1">说明书附图</li>
+        <li class="toc-level-2">图 1：系统整体架构图</li>
+        <li class="toc-level-2">图 2：空间区域划分示意图</li>
+        <li class="toc-level-2">图 3：动态参数调整流程图</li>
+        <li class="toc-level-2">图 4：空间扭曲原理图</li>
+        <li class="toc-level-2">图 5：多用户协同时序图</li>
+        <li class="toc-level-2">图 6：文化沉浸场景应用图</li>
+        <li class="toc-level-2">图 7：军事训练场景应用图</li>
+        <li class="toc-level-2">图 8：技术效果对比图</li>
+    </ul>
+</div>
+
+<!-- 说明书摘要 -->
+<div class="page-break"></div>
+<h1>说明书摘要</h1>
+<p>本发明公开了一种基于空间扭曲技术的 VR 大空间动态优化方法及系统，属于虚拟现实技术领域。该方法包括：通过空间感知模块实时采集用户在 VR 大空间中的位置信息和运动轨迹数据；利用空间扭曲算法对虚拟场景进行动态形变处理，根据用户当前位置和预设的安全边界计算空间扭曲系数；基于所述空间扭曲系数对虚拟场景中的对象进行非线性映射变换，生成适配用户实际活动范围的渲染画面；通过边界预警模块在用户接近物理安全边界时触发渐进式视觉提示。本发明能够有效解决现有 VR 大空间体验中虚拟空间与物理空间不匹配导致的安全隐患和沉浸感断裂问题。系统包括空间感知模块、空间扭曲计算模块、场景渲染模块和边界预警模块。本发明适用于 VR 体验馆、企业培训、军事仿真等大空间虚拟现实应用场景。</p>
+<p class="no-indent"><strong>摘要附图：</strong>图 1</p>
+
+<!-- 权利要求书 -->
+<div class="page-break"></div>
+<h1>权利要求书</h1>
+<div class="claims">
+    <div class="claim-item">
+        <span class="claim-number">1.</span>一种基于空间扭曲技术的 VR 大空间动态优化方法，其特征在于，包括以下步骤：
+        <br/>步骤 S1：通过空间感知模块实时采集用户在 VR 大空间中的位置坐标信息 (x, y, z) 和运动轨迹数据；
+        <br/>步骤 S2：利用空间扭曲算法对虚拟场景进行动态形变处理，根据用户当前位置和预设的物理安全边界计算空间扭曲系数 k，其中 k=f(d, D)，d 为用户当前位置到最近安全边界的距离，D 为预设的预警距离阈值；
+        <br/>步骤 S3：基于所述空间扭曲系数 k 对虚拟场景中的三维对象进行非线性映射变换，生成适配用户实际活动范围的渲染画面，所述非线性映射变换采用公式 P'=P×(1-k×g(r))，其中 P 为原始顶点坐标，P'为变换后坐标，r 为顶点到场景中心的距离，g(r) 为距离衰减函数；
+        <br/>步骤 S4：通过边界预警模块在用户接近物理安全边界时触发渐进式视觉提示，当 d≤D 时启动一级预警，当 d≤D/2 时启动二级预警，当 d≤D/4 时启动三级预警并限制虚拟移动速度。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">2.</span>根据权利要求 1 所述的方法，其特征在于，所述步骤 S1 中空间感知模块包括激光定位传感器、惯性测量单元 IMU 和深度摄像头中的至少一种，所述位置坐标信息的采集频率为 60Hz 至 240Hz。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">3.</span>根据权利要求 1 所述的方法，其特征在于，所述步骤 S2 中空间扭曲系数 k 的计算公式为：当 d&gt;D 时，k=0；当 D/4&lt;d≤D 时，k=0.1×(D-d)/(3D/4)；当 d≤D/4 时，k=0.3+0.4×(D/4-d)/(D/4)；其中 k 的取值范围为 [0, 0.7]。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">4.</span>根据权利要求 1 所述的方法，其特征在于，所述步骤 S3 中距离衰减函数 g(r) 采用高斯函数形式：g(r)=exp(-r²/2σ²)，其中σ为场景半径的 1/3 至 1/2。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">5.</span>根据权利要求 1 所述的方法，其特征在于，所述步骤 S4 中渐进式视觉提示包括：一级预警：在视野边缘显示半透明网格边界线，透明度为 30% 至 50%；二级预警：增强网格边界线亮度并添加脉冲闪烁效果，闪烁频率为 1Hz 至 2Hz；三级预警：在视野前方生成虚拟屏障并限制用户移动速度至正常速度的 20% 至 40%。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">6.</span>根据权利要求 1 至 5 中任一项所述的方法，其特征在于，还包括步骤 S5：通过机器学习模块对用户的历史运动轨迹数据进行训练，建立用户行为预测模型，基于预测结果提前调整空间扭曲系数 k 的变化速率。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">7.</span>一种基于空间扭曲技术的 VR 大空间动态优化系统，用于实现权利要求 1 至 6 中任一项所述的方法，其特征在于，包括：空间感知模块，用于实时采集用户在 VR 大空间中的位置坐标信息和运动轨迹数据；空间扭曲计算模块，用于根据用户当前位置和预设的物理安全边界计算空间扭曲系数，并生成非线性映射变换参数；场景渲染模块，用于基于所述空间扭曲系数对虚拟场景进行实时渲染，输出适配用户实际活动范围的画面；边界预警模块，用于在用户接近物理安全边界时触发分级视觉提示；中央处理单元，用于协调各模块的数据交互和处理时序。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">8.</span>根据权利要求 7 所述的系统，其特征在于，所述空间感知模块包括基站定位子模块和头戴设备内置传感器子模块，所述基站定位子模块采用 Lighthouse 激光定位技术或 Ultra-Wideband 超宽带定位技术，定位精度达到毫米级。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">9.</span>根据权利要求 7 所述的系统，其特征在于，所述场景渲染模块包括 GPU 加速单元，支持实时光线追踪和动态分辨率调整，渲染延迟低于 20ms，帧率不低于 90fps。
+    </div>
+    <div class="claim-item">
+        <span class="claim-number">10.</span>根据权利要求 7 至 9 中任一项所述的系统，其特征在于，还包括网络通信模块，支持多用户协同 VR 体验，通过服务器同步各用户的空间扭曲状态，确保多用户在同一虚拟场景中的一致性体验。
+    </div>
+</div>
+
+<!-- 说明书 -->
+<div class="page-break"></div>
+<h1>说明书</h1>
+
+<h2>技术领域</h2>
+<p>本发明涉及虚拟现实（Virtual Reality，VR）技术领域，具体而言，涉及一种基于空间扭曲技术的 VR 大空间动态优化方法及系统，尤其适用于 VR 体验馆、企业培训、军事仿真、教育培训等大空间虚拟现实应用场景中的空间适配与安全优化。</p>
+
+<h2>背景技术</h2>
+<p>虚拟现实技术作为新一代人机交互界面的重要发展方向，近年来在娱乐、教育、医疗、工业等领域得到广泛应用。其中，大空间 VR 体验（Large-Space VR）允许用户在数十至数百平方米的物理空间内自由行走，获得更加真实和沉浸的虚拟体验，成为 VR 行业发展的重要趋势。</p>
+<p>然而，现有大空间 VR 技术在实际应用中面临以下主要技术问题：第一，虚拟空间与物理空间不匹配问题；第二，安全隐患问题；第三，多用户协同体验的一致性问题；第四，动态场景适配能力不足。因此，亟需一种能够有效解决上述技术问题的 VR 大空间动态优化方法及系统。</p>
+
+<h2>发明内容</h2>
+<h3>一、发明目的</h3>
+<p>本发明的目的在于提供一种基于空间扭曲技术的 VR 大空间动态优化方法及系统，以解决现有技术中虚拟空间与物理空间不匹配、安全隐患突出、多用户协同体验一致性差以及动态场景适配能力不足等技术问题。</p>
+
+<h3>二、技术方案</h3>
+<p>为实现上述发明目的，本发明采用以下技术方案：第一方面，本发明提供一种基于空间扭曲技术的 VR 大空间动态优化方法，包括以下步骤：步骤 S1，通过空间感知模块实时采集用户在 VR 大空间中的位置坐标信息和运动轨迹数据；步骤 S2，利用空间扭曲算法对虚拟场景进行动态形变处理；步骤 S3，基于空间扭曲系数对虚拟场景中的三维对象进行非线性映射变换；步骤 S4，通过边界预警模块触发渐进式视觉提示。</p>
+<p>第二方面，本发明提供一种基于空间扭曲技术的 VR 大空间动态优化系统，包括：空间感知模块、空间扭曲计算模块、场景渲染模块、边界预警模块和中央处理单元。</p>
+
+<h3>三、有益效果</h3>
+<p>与现有技术相比，本发明具有以下显著有益效果：第一，实现虚拟空间与物理空间的智能适配；第二，提升安全保障能力；第三，支持多用户协同体验的一致性；第四，具备动态场景适配能力；第五，技术实现成本可控。</p>
+
+<h2>附图说明</h2>
+<p>图 1 为本发明实施例提供的系统整体架构图；</p>
+<p>图 2 为本发明实施例提供的空间区域划分示意图；</p>
+<p>图 3 为本发明实施例提供的动态参数调整流程图；</p>
+<p>图 4 为本发明实施例提供的空间扭曲原理图；</p>
+<p>图 5 为本发明实施例提供的多用户协同时序图；</p>
+<p>图 6 为本发明实施例提供的文化沉浸场景应用图；</p>
+<p>图 7 为本发明实施例提供的军事训练场景应用图；</p>
+<p>图 8 为本发明实施例提供的技术效果对比图。</p>
+
+<h2>具体实施方式</h2>
+<p>下面结合附图和具体实施例对本发明作进一步详细说明。实施例一：基础方案实现，应用于 VR 体验馆的"火星探索"体验项目。实施例二：机器学习优化，采用 LSTM 构建用户行为预测模型。实施例三：多用户协同，应用于 VR 电竞比赛场景。实施例四：工业培训应用，应用于电力公司变电站巡检培训。实施例五：硬件实现方案，采用 Intel Core i9-13900K 处理器和 NVIDIA GeForce RTX 4090 显卡。实施例六：算法优化方案，引入 LOD 技术和渐进网格技术。</p>
+
+<!-- 说明书附图 -->
+<div class="page-break"></div>
+<h1>说明书附图</h1>
+
+<!-- 图 1：系统整体架构图 -->
+<div class="figure">
+    <svg width="700" height="400" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+            </marker>
+        </defs>
+        
+        <!-- 背景 -->
+        <rect width="700" height="400" fill="#fafafa"/>
+        
+        <!-- 数据采集模块 -->
+        <rect x="50" y="50" width="180" height="80" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="140" y="85" text-anchor="middle" font-size="14" font-weight="bold">数据采集模块</text>
+        <text x="140" y="105" text-anchor="middle" font-size="11">位置传感器、IMU</text>
+        <text x="140" y="120" text-anchor="middle" font-size="11">深度摄像头</text>
+        
+        <!-- 空间分区模块 -->
+        <rect x="280" y="50" width="180" height="80" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <text x="370" y="85" text-anchor="middle" font-size="14" font-weight="bold">空间分区模块</text>
+        <text x="370" y="105" text-anchor="middle" font-size="11">核心体验区</text>
+        <text x="370" y="120" text-anchor="middle" font-size="11">过渡区、背景区</text>
+        
+        <!-- 参数调整模块 -->
+        <rect x="510" y="50" width="180" height="80" rx="8" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+        <text x="600" y="85" text-anchor="middle" font-size="14" font-weight="bold">参数调整模块</text>
+        <text x="600" y="105" text-anchor="middle" font-size="11">LOD 参数</text>
+        <text x="600" y="120" text-anchor="middle" font-size="11">扭曲系数 k</text>
+        
+        <!-- 空间扭曲引擎 -->
+        <rect x="280" y="180" width="180" height="80" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+        <text x="370" y="215" text-anchor="middle" font-size="14" font-weight="bold">空间扭曲引擎</text>
+        <text x="370" y="235" text-anchor="middle" font-size="11">非线性映射变换</text>
+        <text x="370" y="250" text-anchor="middle" font-size="11">P'=P×(1-k×g(r))</text>
+        
+        <!-- 输出模块 -->
+        <rect x="50" y="280" width="180" height="80" rx="8" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
+        <text x="140" y="315" text-anchor="middle" font-size="14" font-weight="bold">输出模块</text>
+        <text x="140" y="335" text-anchor="middle" font-size="11">VR 头显</text>
+        <text x="140" y="350" text-anchor="middle" font-size="11">显示设备</text>
+        
+        <!-- 连接箭头 -->
+        <line x1="230" y1="90" x2="275" y2="90" stroke="#333" stroke-width="2" marker-end="url(#arrow1)"/>
+        <line x1="460" y1="90" x2="505" y2="90" stroke="#333" stroke-width="2" marker-end="url(#arrow1)"/>
+        <line x1="370" y1="130" x2="370" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow1)"/>
+        <path d="M 280 220 L 200 220 L 200 320 L 235 320" stroke="#333" stroke-width="2" marker-end="url(#arrow1)" fill="none"/>
+    </svg>
+    <div class="figure-caption">图 1 系统整体架构图</div>
+    <div class="figure-description">展示了本发明系统的五大核心模块及其数据流向：数据采集→空间分区→参数调整→空间扭曲引擎→输出。</div>
+</div>
+
+<!-- 图 2：空间区域划分示意图 -->
+<div class="figure page-break">
+    <svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- 背景 -->
+        <rect width="500" height="500" fill="#fafafa"/>
+        
+        <!-- 背景区（最外层） -->
+        <ellipse cx="250" cy="250" rx="220" ry="220" fill="#e0e0e0" stroke="#616161" stroke-width="2"/>
+        <text x="250" y="50" text-anchor="middle" font-size="12" fill="#616161">背景区（低优先级渲染）</text>
+        
+        <!-- 过渡区（中间层） -->
+        <ellipse cx="250" cy="250" rx="150" ry="150" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <text x="250" y="120" text-anchor="middle" font-size="12" fill="#f57c00">过渡区（中优先级渲染）</text>
+        
+        <!-- 核心体验区（最内层） -->
+        <ellipse cx="250" cy="250" rx="80" ry="80" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="250" y="255" text-anchor="middle" font-size="12" fill="#1976d2" font-weight="bold">核心体验区</text>
+        
+        <!-- 用户位置 -->
+        <circle cx="250" cy="250" r="8" fill="#d32f2f"/>
+        <text x="270" y="255" font-size="12" fill="#d32f2f">用户</text>
+        
+        <!-- 距离标注 -->
+        <line x1="250" y1="250" x2="330" y2="250" stroke="#1976d2" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="290" y="245" font-size="10" fill="#1976d2">0.5-1.5m</text>
+        
+        <line x1="250" y1="250" x2="400" y2="250" stroke="#f57c00" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="325" y="265" font-size="10" fill="#f57c00">1.5-4m</text>
+    </svg>
+    <div class="figure-caption">图 2 空间区域划分示意图</div>
+    <div class="figure-description">采用多层同心圆划分方式：核心体验区（半径 0.5-1.5 米）、过渡区（半径 1.5-4 米）、背景区（半径&gt;4 米）。</div>
+</div>
+
+<!-- 图 3：动态参数调整流程图 -->
+<div class="figure">
+    <svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+            </marker>
+        </defs>
+        
+        <rect width="600" height="500" fill="#fafafa"/>
+        
+        <!-- S1 -->
+        <rect x="200" y="30" width="200" height="60" rx="30" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="300" y="60" text-anchor="middle" font-size="13">S1: 实时监测</text>
+        <text x="300" y="78" text-anchor="middle" font-size="11">用户位置/视线方向</text>
+        
+        <!-- S2 -->
+        <rect x="200" y="120" width="200" height="60" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <text x="300" y="150" text-anchor="middle" font-size="13">S2: 计算区域</text>
+        <text x="300" y="168" text-anchor="middle" font-size="11">优先级权重</text>
+        
+        <!-- S3 -->
+        <rect x="200" y="210" width="200" height="60" rx="8" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+        <text x="300" y="240" text-anchor="middle" font-size="13">S3: 动态分配</text>
+        <text x="300" y="258" text-anchor="middle" font-size="11">渲染资源</text>
+        
+        <!-- S4 -->
+        <rect x="200" y="300" width="200" height="60" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+        <text x="300" y="330" text-anchor="middle" font-size="13">S4: 应用空间</text>
+        <text x="300" y="348" text-anchor="middle" font-size="11">扭曲参数</text>
+        
+        <!-- S5 -->
+        <rect x="200" y="390" width="200" height="60" rx="8" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
+        <text x="300" y="420" text-anchor="middle" font-size="13">S5: 输出优化</text>
+        <text x="300" y="438" text-anchor="middle" font-size="11">渲染帧</text>
+        
+        <!-- 箭头 -->
+        <line x1="300" y1="90" x2="300" y2="115" stroke="#333" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="300" y1="180" x2="300" y2="205" stroke="#333" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="300" y1="270" x2="300" y2="295" stroke="#333" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="300" y1="360" x2="300" y2="385" stroke="#333" stroke-width="2" marker-end="url(#arrow2)"/>
+        
+        <!-- 反馈箭头 -->
+        <path d="M 420 420 L 480 420 L 480 200 L 405 200" stroke="#d32f2f" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrow2)"/>
+        <text x="450" y="310" font-size="11" fill="#d32f2f">实时反馈</text>
+    </svg>
+    <div class="figure-caption">图 3 动态参数调整流程图</div>
+    <div class="figure-description">展示 S1-S5 五个步骤的完整处理流程，包含实时反馈回路确保动态优化效果。</div>
+</div>
+
+<!-- 图 4：空间扭曲原理图 -->
+<div class="figure page-break">
+    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="600" height="400" fill="#fafafa"/>
+        
+        <!-- 原始场景（左侧） -->
+        <rect x="50" y="80" width="200" height="240" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="150" y="110" text-anchor="middle" font-size="14" font-weight="bold">原始场景</text>
+        <line x1="80" y1="140" x2="220" y2="140" stroke="#1976d2" stroke-width="1"/>
+        <line x1="80" y1="180" x2="220" y2="180" stroke="#1976d2" stroke-width="1"/>
+        <line x1="80" y1="220" x2="220" y2="220" stroke="#1976d2" stroke-width="1"/>
+        <line x1="80" y1="260" x2="220" y2="260" stroke="#1976d2" stroke-width="1"/>
+        <text x="150" y="300" text-anchor="middle" font-size="12">P (原始顶点)</text>
+        
+        <!-- 变换箭头 -->
+        <line x1="270" y1="200" x2="330" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arrow1)"/>
+        <text x="300" y="190" text-anchor="middle" font-size="11">P'=P×(1-k×g(r))</text>
+        
+        <!-- 扭曲后场景（右侧） -->
+        <path d="M 350 80 L 550 80 L 540 320 L 360 320 Z" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+        <text x="450" y="110" text-anchor="middle" font-size="14" font-weight="bold">扭曲后场景</text>
+        <path d="M 380 140 Q 450 150 520 140" stroke="#388e3c" stroke-width="1" fill="none"/>
+        <path d="M 380 180 Q 450 190 520 180" stroke="#388e3c" stroke-width="1" fill="none"/>
+        <path d="M 380 220 Q 450 230 520 220" stroke="#388e3c" stroke-width="1" fill="none"/>
+        <path d="M 380 260 Q 450 270 520 260" stroke="#388e3c" stroke-width="1" fill="none"/>
+        <text x="450" y="300" text-anchor="middle" font-size="12">P' (变换后顶点)</text>
+        
+        <!-- 公式 -->
+        <text x="300" y="370" text-anchor="middle" font-size="13" font-weight="bold">k = f(d, D), g(r) = exp(-r²/2σ²)</text>
+    </svg>
+    <div class="figure-caption">图 4 空间扭曲原理图</div>
+    <div class="figure-description">展示非线性映射变换 P'=P×(1-k×g(r)) 的效果，左侧为原始网格，右侧为扭曲后的网格。</div>
+</div>
+
+<!-- 图 5：多用户协同时序图 -->
+<div class="figure">
+    <svg width="700" height="350" viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg">
+        <rect width="700" height="350" fill="#fafafa"/>
+        
+        <!-- 生命线 -->
+        <line x1="100" y1="50" x2="100" y2="320" stroke="#1976d2" stroke-width="2"/>
+        <line x1="300" y1="50" x2="300" y2="320" stroke="#f57c00" stroke-width="2"/>
+        <line x1="500" y1="50" x2="500" y2="320" stroke="#388e3c" stroke-width="2"/>
+        <line x1="650" y1="50" x2="650" y2="320" stroke="#7b1fa2" stroke-width="2"/>
+        
+        <!-- 参与者 -->
+        <rect x="50" y="30" width="100" height="40" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="100" y="55" text-anchor="middle" font-size="11">主用户</text>
+        
+        <rect x="250" y="30" width="100" height="40" rx="5" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <text x="300" y="55" text-anchor="middle" font-size="11">从用户 1</text>
+        
+        <rect x="450" y="30" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+        <text x="500" y="55" text-anchor="middle" font-size="11">从用户 2</text>
+        
+        <rect x="600" y="30" width="100" height="40" rx="5" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+        <text x="650" y="55" text-anchor="middle" font-size="11">服务器</text>
+        
+        <!-- 消息箭头 -->
+        <line x1="100" y1="100" x2="650" y2="100" stroke="#333" stroke-width="1.5" marker-end="url(#arrow1)"/>
+        <text x="375" y="95" text-anchor="middle" font-size="10">发送状态 (30Hz)</text>
+        
+        <rect x="640" y="110" width="20" height="40" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+        <text x="650" y="135" text-anchor="middle" font-size="9">同步</text>
+        
+        <line x1="650" y1="170" x2="100" y2="170" stroke="#333" stroke-width="1.5" marker-end="url(#arrow1)" stroke-dasharray="3,3"/>
+        <text x="375" y="165" text-anchor="middle" font-size="10">广播同步状态</text>
+        
+        <line x1="650" y1="210" x2="300" y2="210" stroke="#333" stroke-width="1.5" marker-end="url(#arrow1)" stroke-dasharray="3,3"/>
+        <line x1="650" y1="240" x2="500" y2="240" stroke="#333" stroke-width="1.5" marker-end="url(#arrow1)" stroke-dasharray="3,3"/>
+        
+        <text x="100" y="340" text-anchor="middle" font-size="10" fill="#1976d2">60-90 FPS</text>
+        <text x="300" y="340" text-anchor="middle" font-size="10" fill="#f57c00">30-60 FPS</text>
+        <text x="500" y="340" text-anchor="middle" font-size="10" fill="#388e3c">30-60 FPS</text>
+    </svg>
+    <div class="figure-caption">图 5 多用户协同时序图</div>
+    <div class="figure-description">展示主用户与从用户通过服务器进行状态同步的时序，确保多用户体验一致性（30Hz 更新频率）。</div>
+</div>
+
+<!-- 图 6：文化沉浸场景应用图 -->
+<div class="figure page-break">
+    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="600" height="400" fill="#fafafa"/>
+        
+        <!-- 故宫建筑轮廓 -->
+        <rect x="150" y="100" width="300" height="200" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <polygon points="150,100 300,50 450,100" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+        
+        <!-- 核心体验区 -->
+        <rect x="220" y="150" width="160" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="300" y="205" text-anchor="middle" font-size="12" fill="#1976d2" font-weight="bold">核心体验区</text>
+        <text x="300" y="225" text-anchor="middle" font-size="10">文物展示（4K 纹理）</text>
+        
+        <!-- 过渡区 -->
+        <rect x="170" y="120" width="260" height="160" fill="#fff9c4" stroke="#fbc02d" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="300" y="290" text-anchor="middle" font-size="11" fill="#fbc02d">过渡区（动态 LOD）</text>
+        
+        <!-- 背景区 -->
+        <text x="300" y="350" text-anchor="middle" font-size="11" fill="#9e9e9e">背景区（远景建筑，扭曲优化）</text>
+        
+        <!-- 用户 -->
+        <circle cx="300" cy="260" r="10" fill="#d32f2f"/>
+        <text x="320" y="265" font-size="11" fill="#d32f2f">用户</text>
+        
+        <text x="300" y="30" text-anchor="middle" font-size="14" font-weight="bold">故宫 VR 文化沉浸体验</text>
+    </svg>
+    <div class="figure-caption">图 6 文化沉浸场景应用图</div>
+    <div class="figure-description">以故宫 VR 游览为例，展示核心体验区（文物展示）、过渡区（动态 LOD）、背景区（远景建筑）的分层渲染策略。</div>
+</div>
+
+<!-- 图 7：军事训练场景应用图 -->
+<div class="figure">
+    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="600" height="400" fill="#fafafa"/>
+        
+        <!-- 战场区域 -->
+        <rect x="50" y="80" width="500" height="250" fill="#efebe9" stroke="#5d4037" stroke-width="2"/>
+        
+        <!-- 高威胁区 -->
+        <polygon points="300,100 450,150 450,250 300,300" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+        <text x="375" y="205" text-anchor="middle" font-size="12" fill="#d32f2f" font-weight="bold">高威胁区</text>
+        <text x="375" y="225" text-anchor="middle" font-size="10">90 FPS</text>
+        
+        <!-- 中威胁区 -->
+        <polygon points="300,100 200,150 200,250 300,300" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+        <text x="250" y="205" text-anchor="middle" font-size="11" fill="#fbc02d">中威胁区</text>
+        <text x="250" y="225" text-anchor="middle" font-size="10">60 FPS</text>
+        
+        <!-- 低威胁区 -->
+        <polygon points="50,100 200,150 200,250 50,300" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+        <text x="125" y="205" text-anchor="middle" font-size="11" fill="#388e3c">低威胁区</text>
+        <text x="125" y="225" text-anchor="middle" font-size="10">30 FPS</text>
+        
+        <!-- 指挥官 -->
+        <circle cx="300" cy="350" r="12" fill="#1976d2"/>
+        <text x="300" y="375" text-anchor="middle" font-size="11" fill="#1976d2">指挥官视角</text>
+        
+        <text x="300" y="50" text-anchor="middle" font-size="14" font-weight="bold">军事训练场景（威胁感知优先级）</text>
+    </svg>
+    <div class="figure-caption">图 7 军事训练场景应用图</div>
+    <div class="figure-description">根据威胁等级动态调整渲染优先级：高威胁区（90 FPS）、中威胁区（60 FPS）、低威胁区（30 FPS）。</div>
+</div>
+
+<!-- 图 8：技术效果对比图 -->
+<div class="figure page-break">
+    <svg width="650" height="350" viewBox="0 0 650 350" xmlns="http://www.w3.org/2000/svg">
+        <rect width="650" height="350" fill="#fafafa"/>
+        
+        <!-- 坐标轴 -->
+        <line x1="80" y1="50" x2="80" y2="280" stroke="#333" stroke-width="2"/>
+        <line x1="80" y1="280" x2="620" y2="280" stroke="#333" stroke-width="2"/>
+        
+        <!-- Y 轴标签 -->
+        <text x="40" y="165" text-anchor="middle" font-size="12" transform="rotate(-90, 40, 165)">帧率 (FPS)</text>
+        <text x="70" y="285" text-anchor="end" font-size="10">0</text>
+        <text x="70" y="235" text-anchor="end" font-size="10">20</text>
+        <text x="70" y="185" text-anchor="end" font-size="10">40</text>
+        <text x="70" y="135" text-anchor="end" font-size="10">60</text>
+        <text x="70" y="85" text-anchor="end" font-size="10">80</text>
+        <text x="70" y="65" text-anchor="end" font-size="10">100</text>
+        
+        <!-- 网格线 -->
+        <line x1="80" y1="230" x2="620" y2="230" stroke="#e0e0e0" stroke-width="1"/>
+        <line x1="80" y1="180" x2="620" y2="180" stroke="#e0e0e0" stroke-width="1"/>
+        <line x1="80" y1="130" x2="620" y2="130" stroke="#e0e0e0" stroke-width="1"/>
+        <line x1="80" y1="80" x2="620" y2="80" stroke="#e0e0e0" stroke-width="1"/>
+        
+        <!-- 柱状图 - 核心体验区 -->
+        <rect x="130" y="208" width="40" height="72" fill="#bdbdbd"/>
+        <rect x="175" y="130" width="40" height="150" fill="#1976d2"/>
+        <text x="150" y="295" text-anchor="middle" font-size="10">核心体验区</text>
+        
+        <!-- 柱状图 - 过渡区 -->
+        <rect x="280" y="235" width="40" height="45" fill="#bdbdbd"/>
+        <rect x="325" y="180" width="40" height="100" fill="#1976d2"/>
+        <text x="300" y="295" text-anchor="middle" font-size="10">过渡区</text>
+        
+        <!-- 柱状图 - 背景区 -->
+        <rect x="430" y="253" width="40" height="27" fill="#bdbdbd"/>
+        <rect x="475" y="218" width="40" height="62" fill="#1976d2"/>
+        <text x="450" y="295" text-anchor="middle" font-size="10">背景区</text>
+        
+        <!-- 柱状图 - 平均值 -->
+        <rect x="530" y="230" width="40" height="50" fill="#bdbdbd"/>
+        <rect x="575" y="180" width="40" height="100" fill="#1976d2"/>
+        <text x="550" y="295" text-anchor="middle" font-size="10">平均值</text>
+        
+        <!-- 图例 -->
+        <rect x="150" y="315" width="15" height="15" fill="#bdbdbd"/>
+        <text x="170" y="327" font-size="10">优化前</text>
+        <rect x="250" y="315" width="15" height="15" fill="#1976d2"/>
+        <text x="270" y="327" font-size="10">优化后</text>
+        
+        <text x="350" y="30" text-anchor="middle" font-size="14" font-weight="bold">优化前后帧率对比</text>
+    </svg>
+    <div class="figure-caption">图 8 技术效果对比图</div>
+    <div class="figure-description">优化后平均帧率从 31 FPS 提升至 60 FPS（+94%），核心体验区从 45 FPS 提升至 85 FPS（+89%）。</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="page-break"></div>
+<div class="doc-info">
+    <p><strong>发明名称：</strong>基于空间扭曲技术的 VR 大空间动态优化方法及系统</p>
+    <p><strong>申 请 人：</strong>未来新视界科技（北京）有限公司</p>
+    <p><strong>发 明 人：</strong>江烈毅</p>
+    <p><strong>申请日期：</strong>2026年04月12日</p>
+    <p><strong>技术领域：</strong>虚拟现实技术/G06T19/00</p>
+    <p><strong>技术分类号：</strong>G06T19/00、G06F3/01、G06T15/00、H04L67/10</p>
+    <p><strong>文档版本：</strong>V6.0（增强专业版 - 含 8 幅专业 SVG 图）</p>
+    <p><strong>权利要求数：</strong>10 项</p>
+    <p><strong>实施例数：</strong>6 个</p>
+    <p><strong>附 图 数：</strong>8 幅（专业 SVG 矢量图）</p>
+</div>
+
+</body>
+</html>

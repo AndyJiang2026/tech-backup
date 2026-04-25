@@ -1,0 +1,95 @@
+{
+  "scenarios": {
+    "design-creation": {
+      "name": "设计创作",
+      "trigger": ["设计", "海报", "Logo", "图片", "插画", "平面", "视觉", "包装"],
+      "skills": [
+        "graphic-design",
+        "designer",
+        "ai-image-gen",
+        "content-writer"
+      ],
+      "priority": "high"
+    },
+    "research-analysis": {
+      "name": "研究分析",
+      "trigger": ["调研", "分析", "搜索", "研究", "市场", "竞品", "行业"],
+      "skills": [
+        "ai-researcher",
+        "analyze",
+        "searxng",
+        "scholar-search"
+      ],
+      "priority": "high"
+    },
+    "document-processing": {
+      "name": "文档处理",
+      "trigger": ["文档", "Word", "Excel", "PDF", "写作", "文案", "报告", "总结"],
+      "skills": [
+        "content-writer",
+        "ai-copywriter",
+        "minimax-mcp",
+        "minimax-docx-pro",
+        "minimax-xlsx-pro"
+      ],
+      "priority": "high"
+    },
+    "automation-office": {
+      "name": "自动化办公",
+      "trigger": ["自动化", "工作流", "定时", "批量", "自动"],
+      "skills": [
+        "automation-workflows",
+        "automation-workflow-builder",
+        "proactive-agent",
+        "social-media-scheduler"
+      ],
+      "priority": "high"
+    },
+    "daily-office": {
+      "name": "日常办公",
+      "trigger": ["提醒", "计划", "日程", "会议", "邮件", "安排"],
+      "skills": [
+        "proactive-agent",
+        "social-media-scheduler",
+        "memory-tiering",
+        "content-writer"
+      ],
+      "priority": "medium"
+    },
+    "business-management": {
+      "name": "商业管理",
+      "trigger": ["运营", "管理", "项目", "团队", "业务", "流程"],
+      "skills": [
+        "agent-team-orchestration",
+        "decision-frameworks",
+        "structure-thinking"
+      ],
+      "priority": "medium"
+    }
+  },
+  "core-skills": [
+    "proactive-agent",
+    "self-improving-agent",
+    "agent-team-orchestration",
+    "decision-frameworks",
+    "structure-thinking",
+    "ai-researcher",
+    "analyze",
+    "data-analyst-pro",
+    "content-writer",
+    "ai-copywriter",
+    "graphic-design",
+    "designer",
+    "ai-image-gen",
+    "searxng",
+    "social-media-scheduler",
+    "memory-tiering",
+    "minimax-docx-pro",
+    "minimax-xlsx-pro",
+    "minimax-mcp"
+  ],
+  "automation-skills": [
+    "automation-workflows",
+    "automation-workflow-builder"
+  ]
+}

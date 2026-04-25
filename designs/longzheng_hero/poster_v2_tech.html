@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《长征·英雄》海报 - 方案 B 科技未来版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimHei", sans-serif;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .poster-container {
+            width: 800px;
+            height: 1200px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #0a0a2e 0%, #1a0a1a 30%, #2e0a0a 70%, #0a0a0a 100%);
+        }
+        
+        /* 科技网格背景 */
+        .tech-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+        
+        /* 中央光晕 */
+        .central-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0,255,255,0.2) 0%, transparent 70%);
+            z-index: 2;
+        }
+        
+        /* 顶部龙标区域 */
+        .dragon-badge {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #00ffff 0%, #0088ff 50%, #00ffff 100%);
+            padding: 15px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0,255,255,0.6);
+            z-index: 10;
+        }
+        
+        .dragon-badge-text {
+            color: #0a0a2e;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+        
+        /* 主标题 */
+        .main-title {
+            position: absolute;
+            top: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .main-title h1 {
+            font-size: 100px;
+            background: linear-gradient(180deg, #00ffff 0%, #0088ff 50%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0,255,255,0.8);
+            font-family: "KaiTi", "STKaiti", serif;
+            letter-spacing: 15px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.5));
+        }
+        
+        .subtitle {
+            font-size: 26px;
+            color: #00ffff;
+            letter-spacing: 6px;
+            text-shadow: 0 0 15px rgba(0,255,255,0.6);
+        }
+        
+        /* 中央 VR 视觉区域 */
+        .central-visual {
+            position: absolute;
+            top: 380px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 450px;
+            z-index: 5;
+        }
+        
+        /* VR 头盔轮廓 */
+        .vr-headset {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 200px;
+            border: 4px solid rgba(0,255,255,0.6);
+            border-radius: 100px 100px 50px 50px;
+            box-shadow: 0 0 40px rgba(0,255,255,0.4), inset 0 0 40px rgba(0,255,255,0.2);
+        }
+        
+        .vr-headset::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(0,255,255,0.3) 0%, transparent 70%);
+            border-radius: 60px;
+        }
+        
+        /* 数据流线条 */
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(180deg, transparent 0%, #00ffff 50%, transparent 100%);
+            z-index: 3;
+        }
+        
+        .data-stream-1 { top: 200px; left: 150px; transform: rotate(20deg); }
+        .data-stream-2 { top: 200px; right: 150px; transform: rotate(-20deg); }
+        .data-stream-3 { top: 150px; left: 50%; transform: translateX(-50%); }
+        
+        /* 六边形科技元素 */
+        .hexagon {
+            position: absolute;
+            width: 80px;
+            height: 90px;
+            background: rgba(0,255,255,0.1);
+            border: 2px solid rgba(0,255,255,0.4);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            z-index: 4;
+        }
+        
+        .hex-1 { top: 100px; left: 100px; }
+        .hex-2 { top: 150px; right: 120px; }
+        .hex-3 { bottom: 150px; left: 150px; }
+        .hex-4 { bottom: 100px; right: 100px; }
+        
+        /* 底部信息 */
+        .bottom-info {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            width: 600px;
+        }
+        
+        .platform-badge {
+            background: linear-gradient(135deg, #0088ff 0%, #0044aa 100%);
+            color: #00ffff;
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0,255,255,0.4);
+        }
+        
+        .credits {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+        
+        .credits-line {
+            margin: 5px 0;
+        }
+        
+        /* 方案标识 */
+        .variant-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00ffff;
+            font-size: 16px;
+            z-index: 20;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <!-- 方案标识 -->
+        <div class="variant-label">方案 B · 科技未来版</div>
+        
+        <!-- 科技网格 -->
+        <div class="tech-grid"></div>
+        
+        <!-- 中央光晕 -->
+        <div class="central-glow"></div>
+        
+        <!-- 数据流 -->
+        <div class="data-stream data-stream-1"></div>
+        <div class="data-stream data-stream-2"></div>
+        <div class="data-stream data-stream-3"></div>
+        
+        <!-- 六边形元素 -->
+        <div class="hexagon hex-1"></div>
+        <div class="hexagon hex-2"></div>
+        <div class="hexagon hex-3"></div>
+        <div class="hexagon hex-4"></div>
+        
+        <!-- 龙标标识 -->
+        <div class="dragon-badge">
+            <div class="dragon-badge-text">🎬 国家电影局龙标审核通过</div>
+        </div>
+        
+        <!-- 主标题 -->
+        <div class="main-title">
+            <h1>长征·英雄</h1>
+            <div class="subtitle">VR 大空间数字体验电影</div>
+        </div>
+        
+        <!-- 中央视觉 -->
+        <div class="central-visual">
+            <div class="vr-headset"></div>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="bottom-info">
+            <div class="platform-badge">🇨🇳 学习强国推荐内容</div>
+            <div class="credits">
+                <div class="credits-line">出品方：强国小马数字科技有限公司</div>
+                <div class="credits-line">技术支持：OpenClaw Agent Team</div>
+                <div class="credits-line">VR 制作：沉浸式数字体验实验室</div>
+                <div class="credits-line">2026 年 荣誉呈现</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

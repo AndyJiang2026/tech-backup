@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长征·英雄 - 史诗沉浸风海报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 1080px;
+            height: 1920px;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: #000000;
+        }
+        
+        .poster {
+            width: 1080px;
+            height: 1920px;
+            position: relative;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 40%, #3d0a0a 70%, #0a0a0a 100%);
+            overflow: hidden;
+        }
+        
+        /* 背景光柱效果 */
+        .light-beams {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 80%;
+            background: 
+                radial-gradient(ellipse at 50% 100%, rgba(196, 30, 58, 0.4) 0%, transparent 70%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 69, 0, 0.2) 0%, transparent 50%),
+                repeating-linear-gradient(90deg, 
+                    transparent 0px, 
+                    transparent 50px, 
+                    rgba(196, 30, 58, 0.03) 50px, 
+                    rgba(196, 30, 58, 0.03) 51px);
+            pointer-events: none;
+        }
+        
+        /* 粒子效果 */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 200px 50px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 250px 90px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 300px 140px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 350px 60px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 400px 100px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 450px 150px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 500px 70px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 550px 110px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 600px 40px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 650px 90px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 700px 130px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 750px 50px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 800px 100px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 850px 140px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 900px 60px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 950px 110px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 1000px 80px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 100px 180px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 150px 220px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 200px 260px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 250px 200px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 300px 240px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 350px 280px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 400px 220px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 450px 260px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 500px 300px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 550px 240px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 600px 280px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 650px 320px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 700px 260px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 750px 300px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 800px 340px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 850px 280px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 900px 320px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 950px 360px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 1000px 300px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 50px 350px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 100px 390px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 150px 430px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 200px 370px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 250px 410px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 300px 450px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 350px 390px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 400px 430px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 450px 470px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 500px 410px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 550px 450px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 600px 490px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 650px 430px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 700px 470px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 750px 510px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 800px 450px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 850px 490px, rgba(255, 215, 0, 0.6), transparent),
+                radial-gradient(2px 2px at 900px 530px, rgba(255, 215, 0, 0.7), transparent),
+                radial-gradient(1px 1px at 950px 470px, rgba(255, 215, 0, 0.5), transparent),
+                radial-gradient(2px 2px at 1000px 510px, rgba(255, 215, 0, 0.8), transparent),
+                radial-gradient(1px 1px at 1030px 550px, rgba(255, 215, 0, 0.6), transparent);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        /* VR 网格线 */
+        .vr-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(196, 30, 58, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(196, 30, 58, 0.05) 1px, transparent 1px);
+            background-size: 100px 100px;
+            pointer-events: none;
+        }
+        
+        /* 长征路线地图轮廓（极淡） */
+        .route-map {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 60%;
+            opacity: 0.08;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cpath d='M100,500 Q200,450 300,480 T500,400 T700,350' stroke='%23C41E3A' stroke-width='3' fill='none'/%3E%3Ccircle cx='100' cy='500' r='5' fill='%23C41E3A'/%3E%3Ccircle cx='300' cy='480' r='5' fill='%23C41E3A'/%3E%3Ccircle cx='500' cy='400' r='5' fill='%23C41E3A'/%3E%3Ccircle cx='700' cy='350' r='5' fill='%23C41E3A'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            pointer-events: none;
+        }
+        
+        /* 3D 徽章容器 */
+        .badge-container {
+            position: absolute;
+            top: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 3D 徽章主体 */
+        .badge-3d {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 60px rgba(196, 30, 58, 0.6),
+                0 0 100px rgba(255, 69, 0, 0.4),
+                inset 0 0 80px rgba(196, 30, 58, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 8px solid #C41E3A;
+        }
+        
+        /* 徽章边缘霓虹光晕 */
+        .badge-3d::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #C41E3A, #FF4500, #FFD700, #C41E3A);
+            z-index: -1;
+            animation: glow-rotate 3s linear infinite;
+            filter: blur(20px);
+            opacity: 0.8;
+        }
+        
+        @keyframes glow-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 徽章内圈 */
+        .badge-inner {
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid #FFD700;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* 徽章核心内容 */
+        .badge-content {
+            width: 280px;
+            height: 280px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 五角星 */
+        .star {
+            position: absolute;
+            top: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+        }
+        
+        /* 军帽剪影 */
+        .army-hat {
+            position: absolute;
+            top: 90px;
+            width: 140px;
+            height: 70px;
+            background: linear-gradient(145deg, #4a4a4a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            clip-path: polygon(0% 40%, 20% 40%, 20% 0%, 80% 0%, 80% 40%, 100% 40%, 100% 100%, 0% 100%);
+            border-top: 3px solid #C41E3A;
+        }
+        
+        .army-hat::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 10px;
+            width: 120px;
+            height: 8px;
+            background: linear-gradient(90deg, #C41E3A, #FFD700, #C41E3A);
+        }
+        
+        /* 山脉剪影 */
+        .mountains {
+            position: absolute;
+            bottom: 30px;
+            width: 240px;
+            height: 80px;
+            background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+            clip-path: polygon(0% 100%, 15% 40%, 30% 80%, 45% 30%, 60% 70%, 75% 20%, 85% 60%, 100% 100%);
+        }
+        
+        /* 金属质感高光 */
+        .metallic-highlight {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        /* 主标题区域 */
+        .title-section {
+            position: absolute;
+            top: 820px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 90%;
+        }
+        
+        .main-title {
+            font-family: "STKaiti", "KaiTi", "楷体", serif;
+            font-size: 140px;
+            font-weight: bold;
+            background: linear-gradient(180deg, #FFD700 0%, #FFA500 30%, #C41E3A 70%, #8B0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                0 0 40px rgba(255, 215, 0, 0.6),
+                0 0 80px rgba(196, 30, 58, 0.4),
+                3px 3px 6px rgba(0, 0, 0, 0.8);
+            letter-spacing: 20px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+        }
+        
+        .subtitle {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            font-size: 42px;
+            color: #FFFFFF;
+            letter-spacing: 15px;
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .slogan {
+            font-family: "STKaiti", "KaiTi", "楷体", serif;
+            font-size: 36px;
+            color: #FFD700;
+            letter-spacing: 8px;
+            text-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.6),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+            margin-top: 20px;
+        }
+        
+        /* 学习强国标识 */
+        .xuexiqiangguo-badge {
+            position: absolute;
+            top: 1200px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, #C41E3A 0%, #8B0000 100%);
+            padding: 20px 60px;
+            border-radius: 50px;
+            border: 3px solid #FFD700;
+            box-shadow: 
+                0 0 30px rgba(196, 30, 58, 0.6),
+                0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+        
+        .xuexiqiangguo-text {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            font-size: 28px;
+            color: #FFFFFF;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* 底部信息 */
+        .footer-info {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 80%;
+        }
+        
+        .footer-text {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            font-size: 18px;
+            color: #CCCCCC;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .footer-year {
+            font-family: "STKaiti", "KaiTi", "楷体", serif;
+            font-size: 24px;
+            color: #FFD700;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* 装饰性光线 */
+        .decorative-light {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 215, 0, 0.3) 50%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        /* 角落装饰 */
+        .corner-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .corner-tl {
+            top: 40px;
+            left: 40px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner-tr {
+            top: 40px;
+            right: 40px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .corner-bl {
+            bottom: 40px;
+            left: 40px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .corner-br {
+            bottom: 40px;
+            right: 40px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        /* 五角星装饰 */
+        .star-decoration {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(145deg, #FFD700 0%, #FFA500 100%);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+        
+        .star-tl { top: 60px; left: 60px; }
+        .star-tr { top: 60px; right: 60px; }
+        .star-bl { bottom: 60px; left: 60px; }
+        .star-br { bottom: 60px; right: 60px; }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <!-- 背景光柱 -->
+        <div class="light-beams"></div>
+        
+        <!-- 粒子效果 -->
+        <div class="particles"></div>
+        
+        <!-- VR 网格线 -->
+        <div class="vr-grid"></div>
+        
+        <!-- 长征路线地图 -->
+        <div class="route-map"></div>
+        
+        <!-- 装饰性光线 -->
+        <div class="decorative-light"></div>
+        
+        <!-- 角落装饰 -->
+        <div class="corner-decoration corner-tl"></div>
+        <div class="corner-decoration corner-tr"></div>
+        <div class="corner-decoration corner-bl"></div>
+        <div class="corner-decoration corner-br"></div>
+        
+        <!-- 五角星装饰 -->
+        <div class="star-decoration star-tl"></div>
+        <div class="star-decoration star-tr"></div>
+        <div class="star-decoration star-bl"></div>
+        <div class="star-decoration star-br"></div>
+        
+        <!-- 3D 徽章 -->
+        <div class="badge-container">
+            <div class="badge-3d">
+                <div class="badge-inner">
+                    <div class="badge-content">
+                        <div class="star"></div>
+                        <div class="army-hat"></div>
+                        <div class="mountains"></div>
+                        <div class="metallic-highlight"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主标题区域 -->
+        <div class="title-section">
+            <div class="main-title">长征·英雄</div>
+            <div class="subtitle">VR 大空间沉浸体验</div>
+            <div class="slogan">重走长征路，致敬英雄魂</div>
+        </div>
+        
+        <!-- 学习强国标识 -->
+        <div class="xuexiqiangguo-badge">
+            <div class="xuexiqiangguo-text">🇨🇳 学习强国推荐内容</div>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="footer-info">
+            <div class="footer-text">强国小马数字科技有限公司 出品</div>
+            <div class="footer-text">OpenClaw Agent Team 技术支持</div>
+            <div class="footer-year">2026 年 荣誉呈现</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+{
+  "scenarios": {
+    "investment-analysis": {
+      "name": "投资分析",
+      "trigger": ["投资", "估值", "公司分析", "股票", "基金"],
+      "skills": [
+        "buffett-letters-skill",
+        "analyze",
+        "data-analyst-pro",
+        "searxng"
+      ],
+      "priority": "high"
+    },
+    "design-creation": {
+      "name": "设计创作",
+      "trigger": ["设计", "海报", "Logo", "图片", "插画", "平面"],
+      "skills": [
+        "graphic-design",
+        "designer",
+        "ai-image-gen",
+        "content-writer"
+      ],
+      "priority": "high"
+    },
+    "research-analysis": {
+      "name": "研究分析",
+      "trigger": ["调研", "分析", "搜索", "研究", "市场"],
+      "skills": [
+        "ai-researcher",
+        "analyze",
+        "searxng",
+        "scholar-search"
+      ],
+      "priority": "high"
+    },
+    "document-processing": {
+      "name": "文档处理",
+      "trigger": ["文档", "Word", "Excel", "PDF", "写作", "文案"],
+      "skills": [
+        "content-writer",
+        "ai-copywriter",
+        "minimax-mcp"
+      ],
+      "priority": "medium"
+    },
+    "daily-office": {
+      "name": "日常办公",
+      "trigger": ["提醒", "计划", "日程", "会议", "邮件"],
+      "skills": [
+        "proactive-agent",
+        "self-improving-agent",
+        "social-media-scheduler",
+        "memory-tiering"
+      ],
+      "priority": "medium"
+    }
+  },
+  "core-skills": [
+    "proactive-agent",
+    "self-improving-agent",
+    "agent-team-orchestration",
+    "decision-frameworks",
+    "structure-thinking",
+    "leadership-strategy-playbook",
+    "ai-researcher",
+    "analyze",
+    "data-analyst-pro",
+    "content-writer",
+    "ai-copywriter",
+    "graphic-design",
+    "designer",
+    "ai-image-gen",
+    "searxng",
+    "scholar-search",
+    "social-media-scheduler",
+    "memory-tiering",
+    "legal-advisor",
+    "finance-report-analyzer"
+  ],
+  "removable-skills": [
+    "quick-translation",
+    "find-skills",
+    "skill-vetter",
+    "dingtalk-knowledge-base",
+    "excalidraw-diagram-generator",
+    "notion",
+    "porteden-email",
+    "sag",
+    "video-generation-minimax",
+    "wan-image-video-generation-editting",
+    "image-process",
+    "minimax-speech",
+    "minimax-tts-cn",
+    "minimax-multimodal",
+    "minimax-usage",
+    "security-auditor",
+    "security-hardening",
+    "thinking-partner",
+    "competitor-analyst",
+    "market-research",
+    "memory-setup",
+    "crm-manager",
+    "project-management-2",
+    "minimax-docx-pro",
+    "minimax-xlsx-pro",
+    "minimax-pdf-pro"
+  ]
+}

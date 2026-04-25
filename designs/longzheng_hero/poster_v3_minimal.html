@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《长征·英雄》海报 - 方案 C 极简现代版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimHei", sans-serif;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .poster-container {
+            width: 800px;
+            height: 1200px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #C41E3A 0%, #8B0000 100%);
+        }
+        
+        /* 极简留白区域 */
+        .white-space {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 100%);
+            z-index: 1;
+        }
+        
+        /* 顶部龙标区域 */
+        .dragon-badge {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #C41E3A;
+            color: #fff;
+            padding: 12px 35px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+        
+        .dragon-badge-text {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-align: center;
+        }
+        
+        /* 主标题 - 极简风格 */
+        .main-title {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .main-title h1 {
+            font-size: 140px;
+            color: #C41E3A;
+            font-family: "KaiTi", "STKaiti", serif;
+            letter-spacing: 20px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #666;
+            letter-spacing: 10px;
+            font-weight: 300;
+        }
+        
+        /* 中央视觉 - 极简线条 */
+        .central-visual {
+            position: absolute;
+            top: 420px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            z-index: 5;
+        }
+        
+        /* 极简山脉线条 */
+        .minimal-mountain {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+        }
+        
+        .mountain-line {
+            position: absolute;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #fff 0%, transparent 100%);
+        }
+        
+        .ml-1 { left: 10%; height: 150px; }
+        .ml-2 { left: 25%; height: 200px; }
+        .ml-3 { left: 40%; height: 120px; }
+        .ml-4 { left: 50%; height: 250px; }
+        .ml-5 { left: 60%; height: 130px; }
+        .ml-6 { left: 75%; height: 180px; }
+        .ml-7 { left: 90%; height: 140px; }
+        
+        /* 连接线条 */
+        .connection-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .cl-1 { top: 100px; left: 15%; width: 70%; }
+        .cl-2 { top: 150px; left: 20%; width: 60%; }
+        .cl-3 { top: 200px; left: 25%; width: 50%; }
+        
+        /* 圆点装饰 */
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        
+        .dot-1 { top: 96px; left: 12%; }
+        .dot-2 { top: 96px; right: 12%; }
+        .dot-3 { top: 146px; left: 18%; }
+        .dot-4 { top: 146px; right: 18%; }
+        
+        /* 底部信息区域 */
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 100%);
+            z-index: 10;
+        }
+        
+        .bottom-info {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 500px;
+        }
+        
+        .platform-badge {
+            background: transparent;
+            color: #fff;
+            padding: 10px 30px;
+            border: 2px solid #fff;
+            border-radius: 0;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .credits {
+            color: #aaa;
+            font-size: 13px;
+            line-height: 2;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        
+        .credits-line {
+            margin: 8px 0;
+        }
+        
+        /* 方案标识 */
+        .variant-label {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #C41E3A;
+            font-size: 14px;
+            z-index: 20;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 12px;
+        }
+        
+        /* 装饰性印章 */
+        .seal {
+            position: absolute;
+            bottom: 350px;
+            right: 80px;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 8;
+            transform: rotate(-15deg);
+        }
+        
+        .seal-text {
+            color: rgba(255,255,255,0.6);
+            font-size: 24px;
+            font-family: "KaiTi", serif;
+            writing-mode: vertical-rl;
+            letter-spacing: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <!-- 方案标识 -->
+        <div class="variant-label">方案 C · 极简现代版</div>
+        
+        <!-- 留白区域 -->
+        <div class="white-space"></div>
+        
+        <!-- 底部区域 -->
+        <div class="bottom-section"></div>
+        
+        <!-- 龙标标识 -->
+        <div class="dragon-badge">
+            <div class="dragon-badge-text">龙标审核通过</div>
+        </div>
+        
+        <!-- 主标题 -->
+        <div class="main-title">
+            <h1>长征·英雄</h1>
+            <div class="subtitle">VR 大空间数字体验电影</div>
+        </div>
+        
+        <!-- 中央视觉 -->
+        <div class="central-visual">
+            <!-- 极简山脉线条 -->
+            <div class="minimal-mountain">
+                <div class="mountain-line ml-1"></div>
+                <div class="mountain-line ml-2"></div>
+                <div class="mountain-line ml-3"></div>
+                <div class="mountain-line ml-4"></div>
+                <div class="mountain-line ml-5"></div>
+                <div class="mountain-line ml-6"></div>
+                <div class="mountain-line ml-7"></div>
+            </div>
+            
+            <!-- 连接线条 -->
+            <div class="connection-line cl-1"></div>
+            <div class="connection-line cl-2"></div>
+            <div class="connection-line cl-3"></div>
+            
+            <!-- 装饰圆点 -->
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
+            <div class="dot dot-4"></div>
+        </div>
+        
+        <!-- 装饰印章 -->
+        <div class="seal">
+            <div class="seal-text">英雄</div>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="bottom-info">
+            <div class="platform-badge">学习强国推荐内容</div>
+            <div class="credits">
+                <div class="credits-line">出品方 | 强国小马数字科技有限公司</div>
+                <div class="credits-line">技术支持 | OpenClaw Agent Team</div>
+                <div class="credits-line">VR 制作 | 沉浸式数字体验实验室</div>
+                <div class="credits-line">2026</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
